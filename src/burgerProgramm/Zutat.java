@@ -1,6 +1,6 @@
 package burgerProgramm;
 
-public class Zutat {
+public abstract class Zutat {
 	protected int nummer;
 	protected String name;
 	protected float preis;
@@ -10,6 +10,7 @@ public class Zutat {
 
 	public Zutat(String name, int nummer, float preis, boolean klassisch, String typ) {
 		this.name = name;
+		this.nummer = nummer;
 		this.preis = preis;
 		this.klassisch = klassisch;
 
@@ -28,10 +29,9 @@ public class Zutat {
 		this(name, nummer, preis, "vegetarisch");
 	}
 
-	public int zubereiten() {
-		System.out.println(this.name + " wird zubereitet.");
-		return 0;
-	}
+	public abstract int zubereiten();
+	
+	public abstract double berechneHoehe();
 
 	public String toString() {
 		String klassisch;

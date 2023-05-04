@@ -1,7 +1,10 @@
 package burgerProgramm;
 
 public class Sauce extends Zutat {
-
+	public final String SUESS = "sueß";
+	public final String SCHARF = "scharf";
+	public final String SALZIG = "salzig";
+	
 	protected int menge;
 	protected String geschmack;
 
@@ -17,6 +20,11 @@ public class Sauce extends Zutat {
 
 	public int zubereiten() {
 		System.out.println(this.name + " wird geschuettelt.");
+		return 0;
+	}
+	
+	@Override
+	public double berechneHoehe() {
 		return 0;
 	}
 

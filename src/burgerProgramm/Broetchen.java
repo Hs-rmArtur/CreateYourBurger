@@ -1,7 +1,7 @@
 package burgerProgramm;
 
 public class Broetchen extends Zutat {
-	protected int backzeit;
+	protected int backzeit; //in Sekunden
 	protected int hoehe;
 
 	public Broetchen(String name, int nummer, float preis, boolean klassisch, String typ, int backzeit, int hoehe) {
@@ -17,16 +17,16 @@ public class Broetchen extends Zutat {
 
 	public int zubereiten() {
 		System.out.println(this.name + " " + (backzeit / 60) + " Minuten rösten und aufschneiden.");
+		//+1, da Aufschneiden eine Sekunde dauert.
 		return this.backzeit + 1;
 	}
 
-	public float berechneHoehe() {
-
-		float hoeheMinute;
-		float temp = this.hoehe;
+	public double berechneHoehe() { 
+		double hoeheMinute;
+		double temp = this.hoehe;
 
 		for (int i = 0; i < (backzeit / 60); i++) {
-			hoeheMinute = (float) ((temp / 100) * 2.5);
+			hoeheMinute = (temp / 100) * 2.5;
 			temp += hoeheMinute;
 		}
 		return temp;

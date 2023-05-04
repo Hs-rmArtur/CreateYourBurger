@@ -1,7 +1,6 @@
 package burgerProgramm;
 
 public class Gemuese extends Zutat {
-
 	protected int scheibenAnzahl;
 	protected int scheibenDicke;
 
@@ -16,9 +15,8 @@ public class Gemuese extends Zutat {
 		this(name, nummer, preis, false, "vegetarisch", scheibenAnzahl, scheibenDicke);
 	}
 
-	public float berechneHoehe() {
-		int temp = (scheibenAnzahl / 3);
-		return (scheibenDicke * temp);
+	public double berechneHoehe() {
+		return scheibenDicke;
 	}
 
 	public int zubereiten() {

@@ -1,12 +1,12 @@
 package burgerProgramm;
 
 public class Bratling extends Zutat {
-	protected int backzeit;
+	protected int bratzeit;
 	protected int hoehe;
 
 	public Bratling(String name, int nummer, float preis, boolean klassisch, String typ, int backzeit, int hoehe) {
 		super(name, nummer, preis, klassisch, typ);
-		this.backzeit = backzeit;
+		this.bratzeit = backzeit;
 		this.hoehe = hoehe;
 
 	}
@@ -16,27 +16,27 @@ public class Bratling extends Zutat {
 	}
 
 	public int zubereiten() {
-		int minutenProSeite = (backzeit / 2) / 60;
-		int sekundenProSeite = (backzeit / 2) % 60;
+		int minutenProSeite = (bratzeit / 2) / 60;
+		int sekundenProSeite = (bratzeit / 2) % 60;
 
 		System.out.println(this.name + " von jeder Seite " + minutenProSeite + " Minuten und " + sekundenProSeite
 				+ " Sekunden grillen.");
-		return this.backzeit;
+		return this.bratzeit;
 	}
 
-	public float berechneHoehe() {
-		float hoeheMinute;
-		float temp = this.hoehe;
+	public double berechneHoehe() {
+		double hoeheMinute;
+		double temp = this.hoehe;
 
-		for (int i = 0; i < backzeit; i++) {
-			hoeheMinute = (float) ((temp / 100) * 3.5);
+		for (int i = 0; i < bratzeit; i++) {
+			hoeheMinute = (temp / 100) * 3.5;
 			temp -= hoeheMinute;
 		}
 		return temp;
 	}
 
 	public String toString() {
-		return super.toString() + "\nBackzeit: " + this.backzeit + " Sekunden  |  Hoehe: " + this.berechneHoehe()
+		return super.toString() + "\nBackzeit: " + this.bratzeit + " Sekunden  |  Hoehe: " + this.berechneHoehe()
 				+ " mm";
 	}
 

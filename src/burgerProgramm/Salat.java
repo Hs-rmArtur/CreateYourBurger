@@ -2,12 +2,13 @@ package burgerProgramm;
 
 public class Salat extends Zutat {
 
-	public Salat(String name, int nummer, float preis, boolean klassisch, String typ) {
-		super(name, nummer, preis, klassisch, typ);
+	public Salat(String name, int nummer, float preis, boolean klassisch) {
+		super(name, nummer, preis, klassisch, "vegan");
 	}
-
-	public Salat(String name, int nummer, float preis) {
-		this(name, nummer, preis, false, "vegetarisch");
+	
+	@Override
+	public double berechneHoehe() {
+		return 0;
 	}
 
 	public int zubereiten() {
