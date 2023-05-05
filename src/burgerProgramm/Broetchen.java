@@ -11,10 +11,17 @@ public class Broetchen extends Zutat {
 
 	}
 
-	public int zubereiten() {
-		System.out.println(this.name + " " + (backzeit / 60) + " Minuten rösten und aufschneiden.");
+	public Broetchen(String name, int nummer, float preis, int backzeit, int hoehe) {
+		this(name, nummer, preis, false, "vegetarisch", backzeit, hoehe);
+	}
+
+	public String zubereiten() {
+		return this.name + " " + (backzeit / 60) + " Minuten rösten und aufschneiden.";
+	}
+	
+	public int berechneZubereitungsZeit() {
 		//+1, da Aufschneiden eine Sekunde dauert.
-		return this.backzeit + 1;
+				return this.backzeit + 1;
 	}
 
 	public double berechneHoehe() { 

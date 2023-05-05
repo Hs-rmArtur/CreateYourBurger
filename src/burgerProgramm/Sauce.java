@@ -18,12 +18,14 @@ public class Sauce extends Zutat {
 		this(name, nummer, preis, false, "", menge, geschmack);
 	}
 
-	public int zubereiten() {
-		System.out.println(this.name + " wird geschuettelt.");
+	public String zubereiten() {
+		return this.name + " wird geschuettelt.";
+	}
+	
+	public int berechneZubereitungsZeit() {
 		return 0;
 	}
 	
-	@Override
 	public double berechneHoehe() {
 		return 0;
 	}

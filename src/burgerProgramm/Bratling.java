@@ -11,13 +11,17 @@ public class Bratling extends Zutat {
 
 	}
 
-	public int zubereiten() {
-		int minutenProSeite = (bratzeit / 2) / 60;
-		int sekundenProSeite = (bratzeit / 2) % 60;
+	public Bratling(String name, int nummer, double preis, int backzeit, int hoehe) {
+		this(name, nummer, preis, false, "vegetarisch", backzeit, hoehe);
+	}
 
-		System.out.println(this.name + " von jeder Seite " + minutenProSeite + " Minuten und " + sekundenProSeite
-				+ " Sekunden grillen.");
-		return this.bratzeit;
+	public String zubereiten() {
+		return this.name + " von jeder Seite " + (berechneZubereitungsZeit() / 60) + " Minuten und "
+				+ (berechneZubereitungsZeit() % 60) + " Sekunden grillen.";
+	}
+	
+	public int berechneZubereitungsZeit() {
+		return this.bratzeit/2;
 	}
 
 	public double berechneHoehe() {

@@ -24,6 +24,7 @@ public class Burger {
 		this.hoehe = 0.0;
 		this.preis = 0.0;
 		this.zubereitungsZeit = 0;
+		this.geschmack = "";
 	}
 
 	private boolean checkObVegan() {
@@ -49,29 +50,6 @@ public class Burger {
 
 	}
 
-	/*
-	private void berechneHoehe() {
-		for (int i = 0; i < zutaten.length; i++) {
-			if (zutaten[i] != null) {
-				hoehe += zutaten[i].berechneHoehe();
-			}
-		}
-	}
-
-	private void berechnePreis() {
-		for (int i = 0; i < zutaten.length; i++) {
-			if(zutaten[i] != null) {
-				zutaten[]
-			}
-		}
-	}
-	
-
-	private int berechneZubereitungszeit() {
-		return 0;
-	}
-	*/
-
 	private boolean checkObKlassisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
@@ -82,6 +60,45 @@ public class Burger {
 		}
 		return true;
 	}
+	
+	private String checkGeschmack() {
+		for(int i = 0; i < zutaten.length; i++) {
+			if(zutaten[i] instanceof Sauce) {
+				this.geschmack = ((Sauce)zutaten[i]).geschmack;
+			}
+		}
+		
+		return this.geschmack;
+	}
+	
+	private double berechneHoehe() {
+		for (int i = 0; i < zutaten.length; i++) {
+			if (zutaten[i] != null) {
+				this.hoehe += zutaten[i].berechneHoehe();
+			}
+		}
+		return this.hoehe;
+	}
+
+	private double berechnePreis() {
+		for (int i = 0; i < zutaten.length; i++) {
+			if(zutaten[i] != null) {
+				this.preis += zutaten[i].preis;
+			}
+		}
+		return this.preis;
+	}
+	
+
+	private int berechneZubereitungszeit() {
+		for (int i = 0; i < zutaten.length; i++) {
+			if(zutaten[i] != null) {
+				this.zubereitungsZeit += zutaten[i].berechneZubereitungsZeit();
+			}
+		}
+		return this.zubereitungsZeit;
+	}
+
 
 	public void fuegeZutatHinzu(Zutat zutat) {
 		// Zutat wird hinzugefügt
@@ -91,9 +108,6 @@ public class Burger {
 				break;
 			}
 		}
-		//dynamische Berechnung der Hoehe und Preises, sowie vegan oder nicht.
-		this.hoehe += zutat.berechneHoehe();
-		this.preis += zutat.preis;
 	}
 
 	public void entferneZutat(Zutat zutat) {
@@ -101,38 +115,52 @@ public class Burger {
 				for (int i = 0; i < zutaten.length; i++) {
 					if (zutaten[i] == zutat) {
 						zutaten[i] = null;
-						
-						//dynamische Berechnung der Hoehe und Preises, sowie vegan oder nicht.
-						this.hoehe -= zutat.berechneHoehe();
-						this.preis -= zutat.preis;
-						
 						break;
 					}
 				}
 				
 	}
+	
+	public void zeigeRezept() {
+		System.out.println("Rezept - " + this.toString());
+		
+		System.out.print("Zutaten: ");
+		for(int i = 0; i < zutaten.length - 1; i++) {
+			System.out.print(zutaten[i].name + ", ");
+		}
+		System.out.print(zutaten[zutaten.length - 1].name + "\n");
+		System.out.println();
+		
+		System.out.println("Und so gehts:");
+		for(int i = 0; i < zutaten.length; i++) {
+			System.out.println(('a' + i) + " - " + zutaten[i].zubereiten());
+		}
+		
+	}
+	
 
 	public String toString() {
-		String klassisch;
-		String typ = "";
-
-		if (this.klassisch) {
-			klassisch = "Ja";
-		} else {
-			klassisch = "Nein";
-		}
-
-		if (this.vegan) {
-			typ = "vegan";
-		} else if (this.vegetarisch) {
-			typ = "vegetarisch";
-		}
+		String temp;
+	
+		
+		temp = this.name + " (" + (this.berechneHoehe()/100.0) + " cm";
 		
 		if(this.klassisch) {
-			klassisch = "klassisch";
+			temp += ", klassisch";
+		} 
+		if(this.vegan) {
+			temp += ", vegan";
+		}
+		if(this.vegetarisch && this.vegan == false) {
+			temp += ", vegetarisch";
+		}
+		if(!this.geschmack.equalsIgnoreCase("")) {
+			temp += ", " + this.geschmack;
 		}
 		
-		return klassisch + "  |  " + typ + "  |  Hoehe: " + this.hoehe + "  |  Preis: " + this.preis;
+		temp += ") - " + this.berechnePreis() + " €";
+		
+		return temp;
 	}
 
 }

@@ -2,20 +2,6 @@ package burgerProgramm;
 
 public class Main {
 	public static void main(String[] args) {
-		/*
-		 * Zutat[][] zutaten = { {new Broetchen("Hamburger", 10, 0.85, true,
-		 * "vegetarisch", 90, 27), new Broetchen("Hamburger", 10, 0.85, true,
-		 * "vegetarisch", 90, 27), new Broetchen("Hamburger", 10, 0.85, true,
-		 * "vegetarisch", 90, 27), new Broetchen("Hamburger", 10, 0.85, true,
-		 * "vegetarisch", 90, 27)},
-		 * 
-		 * {new Bratling("Rindfleisch", 20, 1.85, true, " ", 270, 25), new
-		 * Bratling("Rindfleisch", 20, 1.85, true, " ", 270, 25), new
-		 * Bratling("Rindfleisch", 20, 1.85, true, " ", 270, 25), new
-		 * Bratling("Rindfleisch", 20, 1.85, true, " ", 270, 25)},
-		 * 
-		 * {new Broetchen("Hamburger", 10, 0.85, true, "vegetarisch", 90, 27)} };
-		 */
 
 		Zutat[] zutaten = { 	
 				//Broetchen(String name, int nummer, double preis, boolean klassisch, String typ, int backzeit, int hoehe) 

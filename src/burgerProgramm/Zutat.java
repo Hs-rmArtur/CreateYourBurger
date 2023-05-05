@@ -35,7 +35,9 @@ public abstract class Zutat {
 		this(name, nummer, preis, VEGETARISCH);
 	}
 
-	public abstract int zubereiten();
+	public abstract String zubereiten();
+	
+	public abstract int berechneZubereitungsZeit();
 	
 	public abstract double berechneHoehe();
 
