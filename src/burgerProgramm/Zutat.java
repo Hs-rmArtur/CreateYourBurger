@@ -34,6 +34,10 @@ public abstract class Zutat {
 	public Zutat(String name, int nummer, float preis) {
 		this(name, nummer, preis, VEGETARISCH);
 	}
+	
+	public int getNummer() {
+		return this.nummer;
+	}
 
 	public abstract String zubereiten();
 	

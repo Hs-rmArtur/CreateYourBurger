@@ -71,7 +71,7 @@ public class Burger {
 		return this.geschmack;
 	}
 	
-	private double berechneHoehe() {
+	public double berechneHoehe() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				this.hoehe += zutaten[i].berechneHoehe();
@@ -80,7 +80,7 @@ public class Burger {
 		return this.hoehe;
 	}
 
-	private double berechnePreis() {
+	public double berechnePreis() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if(zutaten[i] != null) {
 				this.preis += zutaten[i].preis;
