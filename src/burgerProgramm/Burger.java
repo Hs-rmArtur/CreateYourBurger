@@ -27,7 +27,7 @@ public class Burger {
 		this.geschmack = "";
 	}
 
-	private boolean checkObVegan() {
+	public boolean checkObVegan() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				if (!zutaten[i].vegan) {
@@ -38,7 +38,7 @@ public class Burger {
 		return true;
 	}
 
-	private boolean checkObVegetarisch() {
+	public boolean checkObVegetarisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				if (!zutaten[i].vegetarisch) {
@@ -50,7 +50,7 @@ public class Burger {
 
 	}
 
-	private boolean checkObKlassisch() {
+	public boolean checkObKlassisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				if (!zutaten[i].klassisch) {
@@ -61,7 +61,7 @@ public class Burger {
 		return true;
 	}
 	
-	private String checkGeschmack() {
+	public String checkGeschmack() {
 		for(int i = 0; i < zutaten.length; i++) {
 			if(zutaten[i] instanceof Sauce) {
 				this.geschmack = ((Sauce)zutaten[i]).geschmack;
@@ -90,7 +90,7 @@ public class Burger {
 	}
 	
 
-	private int berechneZubereitungszeit() {
+	public int berechneZubereitungszeit() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if(zutaten[i] != null) {
 				this.zubereitungsZeit += zutaten[i].berechneZubereitungsZeit();
