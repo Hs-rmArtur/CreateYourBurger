@@ -11,8 +11,11 @@ public class Salat extends Zutat {
 		return 0;
 	}
 
-	public int zubereiten() {
-		System.out.println(this.name + " wird gewaschen und geschleudert.");
+	public String zubereiten() {
+		return this.name + " wird gewaschen und geschleudert.";
+	}
+	
+	public int berechneZubereitungsZeit() {
 		return 0;
 	}
 

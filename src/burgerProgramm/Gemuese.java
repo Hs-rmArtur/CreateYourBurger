@@ -16,19 +16,22 @@ public class Gemuese extends Zutat {
 	}
 
 	public double berechneHoehe() {
-		return scheibenDicke;
+		return (scheibenDicke * scheibenAnzahl);
 	}
 
-	public int zubereiten() {
-		System.out.println(this.name + " wird gewaschen.");
+	public String zubereiten() {
+		String temp = this.name + " wird gewaschen.\n";
 
 		for (int i = 1; i <= this.scheibenAnzahl; i++) {
-			System.out.println(i + ". Scheibe mit " + this.scheibenDicke + " mm schneiden.");
+			temp += i + ". Scheibe mit " + this.scheibenDicke + " mm schneiden.";
 		}
-
-		return this.scheibenAnzahl;
+		return temp;
 	}
 
+	public int berechneZubereitungsZeit() {
+		return this.scheibenAnzahl;
+	}
+	
 	public String toString() {
 		return super.toString() + "\nScheiben: " + this.scheibenAnzahl + "  |  Dicke der Scheiben: "
 				+ this.scheibenDicke;

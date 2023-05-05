@@ -13,12 +13,11 @@ public class Main {
 								new Bratling("Rindfleisch", 20, 1.85, true, " ", 270, 25),
 								new Bratling("Rindfleisch", 20, 1.85, true, " ", 270, 25)},
 								
-								{new Salat("Eisbergsalat", 30, 0.18, true)},
+								{new Salat("Eisbergsalat", 30, 0.18F, true)},
 								{new Broetchen("Hamburger", 10, 0.85, true, "vegetarisch", 90, 27)}
-							};
+								};
 		
 		Burger burger = new Burger("Arur");
-		
 		
 		
 		
