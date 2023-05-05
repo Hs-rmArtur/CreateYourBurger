@@ -20,7 +20,7 @@ public class Burger {
 		this.name = name;
 		this.vegan = true;
 		this.vegetarisch = true;
-		this.klassisch = false;
+		this.klassisch = true;
 		this.hoehe = 0.0;
 		this.preis = 0.0;
 		this.zubereitungsZeit = 0;
@@ -65,14 +65,22 @@ public class Burger {
 			}
 		}
 	}
-	*/
+	
 
 	private int berechneZubereitungszeit() {
 		return 0;
 	}
+	*/
 
-	private void checkObKlassisch() {
-
+	private boolean checkObKlassisch() {
+		for (int i = 0; i < zutaten.length; i++) {
+			if (zutaten[i] != null) {
+				if (!zutaten[i].klassisch) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public void fuegeZutatHinzu(Zutat zutat) {
@@ -83,24 +91,48 @@ public class Burger {
 				break;
 			}
 		}
-		
 		//dynamische Berechnung der Hoehe und Preises, sowie vegan oder nicht.
 		this.hoehe += zutat.berechneHoehe();
 		this.preis += zutat.preis;
-		
-		//erstmal nicht schön, da bereits geprüfte Zutaten erneut geprüft werden.
-		this.vegan = checkObVegan();
-		this.vegetarisch = checkObVegetarisch();
 	}
 
 	public void entferneZutat(Zutat zutat) {
-
+		// Zutat wird entfernt
+				for (int i = 0; i < zutaten.length; i++) {
+					if (zutaten[i] == zutat) {
+						zutaten[i] = null;
+						
+						//dynamische Berechnung der Hoehe und Preises, sowie vegan oder nicht.
+						this.hoehe -= zutat.berechneHoehe();
+						this.preis -= zutat.preis;
+						
+						break;
+					}
+				}
+				
 	}
 
-	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		String klassisch;
+		String typ = "";
+
+		if (this.klassisch) {
+			klassisch = "Ja";
+		} else {
+			klassisch = "Nein";
+		}
+
+		if (this.vegan) {
+			typ = "vegan";
+		} else if (this.vegetarisch) {
+			typ = "vegetarisch";
+		}
+		
+		if(this.klassisch) {
+			klassisch = "klassisch";
+		}
+		
+		return klassisch + "  |  " + typ + "  |  Hoehe: " + this.hoehe + "  |  Preis: " + this.preis;
 	}
 
 }

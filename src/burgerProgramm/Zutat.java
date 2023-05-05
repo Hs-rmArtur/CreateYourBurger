@@ -3,12 +3,12 @@ package burgerProgramm;
 public abstract class Zutat {
 	protected int nummer;
 	protected String name;
-	protected float preis;
+	protected double preis;
 	protected boolean vegetarisch;
 	protected boolean vegan;
 	protected boolean klassisch;
 
-	public Zutat(String name, int nummer, float preis, boolean klassisch, String typ) {
+	public Zutat(String name, int nummer, double preis, boolean klassisch, String typ) {
 		this.name = name;
 		this.nummer = nummer;
 		this.preis = preis;

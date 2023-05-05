@@ -4,7 +4,7 @@ public class Broetchen extends Zutat {
 	protected int backzeit; //in Sekunden
 	protected int hoehe;
 
-	public Broetchen(String name, int nummer, float preis, boolean klassisch, String typ, int backzeit, int hoehe) {
+	public Broetchen(String name, int nummer, double preis, boolean klassisch, String typ, int backzeit, int hoehe) {
 		super(name, nummer, preis, klassisch, typ);
 		this.backzeit = backzeit;
 		this.hoehe = hoehe;
@@ -29,7 +29,7 @@ public class Broetchen extends Zutat {
 			hoeheMinute = (temp / 100) * 2.5;
 			temp += hoeheMinute;
 		}
-		return temp;
+		return (Math.round(temp*10)/10.0);
 	}
 
 	public String toString() {
