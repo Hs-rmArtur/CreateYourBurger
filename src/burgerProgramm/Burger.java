@@ -126,14 +126,18 @@ public class Burger {
 		
 		System.out.print("Zutaten: ");
 		for(int i = 0; i < zutaten.length - 1; i++) {
-			System.out.print(zutaten[i].name + ", ");
+			if(zutaten[i] != null) {				
+				System.out.print(zutaten[i].name + ", ");
+			}
 		}
-		System.out.print(zutaten[zutaten.length - 1].name + "\n");
+		//System.out.print(zutaten[temp].name + "\n");
 		System.out.println();
 		
 		System.out.println("Und so gehts:");
 		for(int i = 0; i < zutaten.length; i++) {
-			System.out.println(('a' + i) + " - " + zutaten[i].zubereiten());
+			if(zutaten[i] != null) {
+				System.out.println(((char)('a' + i)) + " - " + zutaten[i].zubereiten());
+			}
 		}
 		
 	}
@@ -158,7 +162,7 @@ public class Burger {
 			temp += ", " + this.geschmack;
 		}
 		
-		temp += ") - " + this.berechnePreis() + " €";
+		temp += ") - " + this.berechnePreis() + " Euro";
 		
 		return temp;
 	}

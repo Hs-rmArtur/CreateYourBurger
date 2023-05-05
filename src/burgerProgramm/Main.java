@@ -56,19 +56,23 @@ public class Main {
 	public static void doCommand(String[] befehl, Burger[] burger) {
 		String tempName = "";
 		int currentBurger = -1;
-		
+
 		for(int i = 0; i < befehl.length; i++) {
 			if(befehl[i].equalsIgnoreCase("Burger")) {
-				if(!(i+1 >= befehl.length)) {
+				if((i+1 < befehl.length)) {
 					tempName = befehl[i+1];
 				}
 			}
+		}
+		
+		for(int i = 0; i < befehl.length; i++) {
 			
 			if(befehl[i].equalsIgnoreCase("neuer") || befehl[i].equalsIgnoreCase("neu")) {
 				for(int j = 0; j < burger.length; j++) {
 					if(burger[j] == null) {
 						burger[j] = new Burger(tempName);
 						currentBurger++; 
+						break;
 					}
 				}
 				
@@ -81,7 +85,7 @@ public class Main {
 					for(int x = 0; x < split.length; x++) {
 						if(split[x].equalsIgnoreCase("zutat")) {
 							for(int j = 0; j < zutaten.length; j++) {
-								if(zutaten[j].getNummer() == Integer.parseInt(befehl[x+1])) {
+								if(zutaten[j].getNummer() == Integer.parseInt(split[x+1])) {
 									burger[currentBurger].fuegeZutatHinzu(zutaten[j]);
 								}
 							}

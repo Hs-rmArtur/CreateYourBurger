@@ -24,7 +24,6 @@ public abstract class Zutat {
 			this.vegan = true;
 		} 
 		
-		System.out.println(this.vegetarisch);
 	}
 
 	public Zutat(String name, int nummer, float preis, String typ) {
