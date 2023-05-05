@@ -17,9 +17,7 @@ public class Main {
 		 * {new Broetchen("Hamburger", 10, 0.85, true, "vegetarisch", 90, 27)} };
 		 */
 
-		Zutat[] zutaten = { 
-				
-				
+		Zutat[] zutaten = { 	
 				//Broetchen(String name, int nummer, double preis, boolean klassisch, String typ, int backzeit, int hoehe) 
 				new Broetchen("Hamburger", 10, 0.85, true, Zutat.VEGETARISCH, 90, 27),
 				new Broetchen("Hamburger Sesam", 11, 0.95, true, Zutat.VEGETARISCH, 90, 28),
@@ -27,8 +25,8 @@ public class Main {
 				new Broetchen("Ciabatta", 13, 0.45, false, Zutat.VEGETARISCH, 330, 41),
 			
 				//Bratling(String name, int nummer, double preis, boolean klassisch, String typ, int backzeit, int hoehe)
-				new Bratling("Rindfleisch (Original)", 20, 1.85, true, "",270, 25),
-				new Bratling("Haehnchenfleisch gegrillt", 21, 1.15, false, "", 180, 11),
+				new Bratling("Rindfleisch (Original)", 20, 1.85, true, Zutat.FLEISCHHALTIG,270, 25),
+				new Bratling("Haehnchenfleisch gegrillt", 21, 1.15, false, Zutat.FLEISCHHALTIG, 180, 11),
 				new Bratling("Falafel-Bratling", 22, 1.45, false, Zutat.VEGAN, 210, 21),
 				new Bratling("Gemuese-Bratling", 23, 1.75, false, Zutat.VEGETARISCH, 240, 25),
 
@@ -37,7 +35,7 @@ public class Main {
 				new Salat("Rucolasalat", 31, 0.25, false),
 				
 				//Gemuese(String name, int nummer, float preis, boolean klassisch, String typ, int scheibenAnzahl,
-				//		int scheibenDicke
+				//int scheibenDicke
 				new Gemuese("Tomate", 40, 0.25, true, 3, 3),
 				new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
 				new Gemuese("Rote Zwiebelringe", 42, 0.08, false, 5, 2),

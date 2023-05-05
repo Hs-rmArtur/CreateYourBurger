@@ -11,10 +11,6 @@ public class Broetchen extends Zutat {
 
 	}
 
-	public Broetchen(String name, int nummer, float preis, int backzeit, int hoehe) {
-		this(name, nummer, preis, false, VEGETARISCH, backzeit, hoehe);
-	}
-
 	public int zubereiten() {
 		System.out.println(this.name + " " + (backzeit / 60) + " Minuten rösten und aufschneiden.");
 		//+1, da Aufschneiden eine Sekunde dauert.

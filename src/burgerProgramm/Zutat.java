@@ -3,6 +3,7 @@ package burgerProgramm;
 public abstract class Zutat {
 	public static final String VEGETARISCH = "vegetarisch";
 	public static final String VEGAN = "vegan";
+	public static final String FLEISCHHALTIG = "";
 	
 	protected int nummer;
 	protected String name;
@@ -21,7 +22,9 @@ public abstract class Zutat {
 			this.vegetarisch = true;
 		} else if (typ.equalsIgnoreCase(VEGAN)) {
 			this.vegan = true;
-		}
+		} 
+		
+		System.out.println(this.vegetarisch);
 	}
 
 	public Zutat(String name, int nummer, float preis, String typ) {

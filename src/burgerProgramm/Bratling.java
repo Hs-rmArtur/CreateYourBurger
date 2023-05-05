@@ -11,10 +11,6 @@ public class Bratling extends Zutat {
 
 	}
 
-	public Bratling(String name, int nummer, double preis, int backzeit, int hoehe) {
-		this(name, nummer, preis, false, "", backzeit, hoehe);
-	}
-
 	public int zubereiten() {
 		int minutenProSeite = (bratzeit / 2) / 60;
 		int sekundenProSeite = (bratzeit / 2) % 60;
