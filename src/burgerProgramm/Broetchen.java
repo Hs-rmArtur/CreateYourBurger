@@ -12,7 +12,7 @@ public class Broetchen extends Zutat {
 	}
 
 	public Broetchen(String name, int nummer, float preis, int backzeit, int hoehe) {
-		this(name, nummer, preis, false, "vegetarisch", backzeit, hoehe);
+		this(name, nummer, preis, false, VEGETARISCH, backzeit, hoehe);
 	}
 
 	public int zubereiten() {

@@ -3,7 +3,7 @@ package burgerProgramm;
 public class Salat extends Zutat {
 
 	public Salat(String name, int nummer, float preis, boolean klassisch) {
-		super(name, nummer, preis, klassisch, "vegan");
+		super(name, nummer, preis, klassisch, VEGAN);
 	}
 	
 	@Override

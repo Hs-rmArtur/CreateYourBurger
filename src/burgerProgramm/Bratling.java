@@ -12,7 +12,7 @@ public class Bratling extends Zutat {
 	}
 
 	public Bratling(String name, int nummer, double preis, int backzeit, int hoehe) {
-		this(name, nummer, preis, false, "vegetarisch", backzeit, hoehe);
+		this(name, nummer, preis, false, VEGETARISCH, backzeit, hoehe);
 	}
 
 	public int zubereiten() {

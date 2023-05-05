@@ -1,9 +1,9 @@
 package burgerProgramm;
 
 public class Sauce extends Zutat {
-	public final String SUESS = "sueß";
-	public final String SCHARF = "scharf";
-	public final String SALZIG = "salzig";
+	public static final String SUESS = "sueß";
+	public static final String SCHARF = "scharf";
+	public static final String SALZIG = "salzig";
 	
 	protected int menge;
 	protected String geschmack;
@@ -15,7 +15,7 @@ public class Sauce extends Zutat {
 	}
 
 	public Sauce(String name, int nummer, float preis, int menge, String geschmack) {
-		this(name, nummer, preis, false, "vegetarisch", menge, geschmack);
+		this(name, nummer, preis, false, VEGETARISCH, menge, geschmack);
 	}
 
 	public int zubereiten() {

@@ -1,6 +1,9 @@
 package burgerProgramm;
 
 public abstract class Zutat {
+	public static final String VEGETARISCH = "vegetarisch";
+	public static final String VEGAN = "vegan";
+	
 	protected int nummer;
 	protected String name;
 	protected double preis;
@@ -14,9 +17,9 @@ public abstract class Zutat {
 		this.preis = preis;
 		this.klassisch = klassisch;
 
-		if (typ.equalsIgnoreCase("vegetarisch")) {
+		if (typ.equalsIgnoreCase(VEGETARISCH)) {
 			this.vegetarisch = true;
-		} else if (typ.equalsIgnoreCase("vegan")) {
+		} else if (typ.equalsIgnoreCase(VEGAN)) {
 			this.vegan = true;
 		}
 	}
@@ -26,7 +29,7 @@ public abstract class Zutat {
 	}
 
 	public Zutat(String name, int nummer, float preis) {
-		this(name, nummer, preis, "vegetarisch");
+		this(name, nummer, preis, VEGETARISCH);
 	}
 
 	public abstract int zubereiten();

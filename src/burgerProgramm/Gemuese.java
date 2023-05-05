@@ -12,7 +12,7 @@ public class Gemuese extends Zutat {
 	}
 
 	public Gemuese(String name, int nummer, float preis, int scheibenAnzahl, int scheibenDicke) {
-		this(name, nummer, preis, false, "vegetarisch", scheibenAnzahl, scheibenDicke);
+		this(name, nummer, preis, false, VEGETARISCH, scheibenAnzahl, scheibenDicke);
 	}
 
 	public double berechneHoehe() {
