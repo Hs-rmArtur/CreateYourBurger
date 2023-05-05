@@ -4,15 +4,11 @@ public class Gemuese extends Zutat {
 	protected int scheibenAnzahl;
 	protected int scheibenDicke;
 
-	public Gemuese(String name, int nummer, float preis, boolean klassisch, String typ, int scheibenAnzahl,
+	public Gemuese(String name, int nummer, double preis, boolean klassisch, int scheibenAnzahl,
 			int scheibenDicke) {
-		super(name, nummer, preis, klassisch, typ);
+		super(name, nummer, preis, klassisch, VEGAN);
 		this.scheibenAnzahl = scheibenAnzahl;
 		this.scheibenDicke = scheibenDicke;
-	}
-
-	public Gemuese(String name, int nummer, float preis, int scheibenAnzahl, int scheibenDicke) {
-		this(name, nummer, preis, false, VEGETARISCH, scheibenAnzahl, scheibenDicke);
 	}
 
 	public double berechneHoehe() {

@@ -2,7 +2,7 @@ package burgerProgramm;
 
 public class Salat extends Zutat {
 
-	public Salat(String name, int nummer, float preis, boolean klassisch) {
+	public Salat(String name, int nummer, double preis, boolean klassisch) {
 		super(name, nummer, preis, klassisch, VEGAN);
 	}
 	

@@ -5,14 +5,14 @@ public class Bratling extends Zutat {
 	protected int hoehe;
 
 	public Bratling(String name, int nummer, double preis, boolean klassisch, String typ, int backzeit, int hoehe) {
-		super(name, nummer, preis, klassisch, typ);
+		super(name, nummer, preis, false, typ);
 		this.bratzeit = backzeit;
 		this.hoehe = hoehe;
 
 	}
 
 	public Bratling(String name, int nummer, double preis, int backzeit, int hoehe) {
-		this(name, nummer, preis, false, VEGETARISCH, backzeit, hoehe);
+		this(name, nummer, preis, false, "", backzeit, hoehe);
 	}
 
 	public int zubereiten() {
