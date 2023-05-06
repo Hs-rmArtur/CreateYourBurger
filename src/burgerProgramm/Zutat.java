@@ -37,7 +37,7 @@ public abstract class Zutat {
 	public int getNummer() {
 		return this.nummer;
 	}
-
+	
 	public abstract String zubereiten();
 
 	public abstract int berechneZubereitungsZeit();

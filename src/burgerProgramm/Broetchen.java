@@ -35,9 +35,4 @@ public class Broetchen extends Zutat {
 		return (Math.round(temp*10)/10.0);
 	}
 
-	public String toString() {
-		return super.toString() + "\nBackzeit: " + this.backzeit + " Sekunden, Hoehe: " + this.berechneHoehe()
-				+ " mm";
-	}
-
 }

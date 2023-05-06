@@ -27,10 +27,5 @@ public class Gemuese extends Zutat {
 	public int berechneZubereitungsZeit() {
 		return this.scheibenAnzahl;
 	}
-	
-	public String toString() {
-		return super.toString() + "\nScheiben: " + this.scheibenAnzahl + ", Dicke der Scheiben: "
-				+ this.scheibenDicke;
-	}
 
 }

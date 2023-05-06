@@ -19,8 +19,4 @@ public class Salat extends Zutat {
 		return 0;
 	}
 
-	public String toString() {
-		return super.toString();
-	}
-
 }
