@@ -36,7 +36,7 @@ public class Bratling extends Zutat {
 	}
 
 	public String toString() {
-		return super.toString() + "\nBackzeit: " + this.bratzeit + " Sekunden  |  Hoehe: " + this.berechneHoehe()
+		return super.toString() + "\nBackzeit: " + this.bratzeit + " Sekunden, Hoehe: " + this.berechneHoehe()
 				+ " mm";
 	}
 

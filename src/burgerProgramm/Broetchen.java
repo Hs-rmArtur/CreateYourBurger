@@ -36,7 +36,7 @@ public class Broetchen extends Zutat {
 	}
 
 	public String toString() {
-		return super.toString() + "\nBackzeit: " + this.backzeit + " Sekunden  |  Hoehe: " + this.berechneHoehe()
+		return super.toString() + "\nBackzeit: " + this.backzeit + " Sekunden, Hoehe: " + this.berechneHoehe()
 				+ " mm";
 	}
 
