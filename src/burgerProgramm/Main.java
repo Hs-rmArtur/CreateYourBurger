@@ -73,9 +73,10 @@ public class Main {
 
 	public static void druckeMenu() {
 		/*
-		 * Wurde so implementiert, um Text zwischen den Zutatenkategorien zu ermöglichen.
-		 * Perfomance technisch nicht schoen, aber da die Anzahl von Zutaten nicht so
-		 * groß ist, noch in Ordnung.
+		 * Wurde so implementiert, um Text zwischen den Zutatenkategorien zu
+		 * ermöglichen. Vorteil ist ebenfalls, dass die Reihenfolge der Zutaten in der Liste nicht
+		 * relevant ist. Perfomance technisch nicht schoen, aber da die Anzahl von Zutaten
+		 * nicht so groß ist, noch in Ordnung.
 		 */
 
 		System.out.println("Broetchen:");
