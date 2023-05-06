@@ -72,7 +72,12 @@ public class Main {
 	}
 
 	public static void druckeMenu() {
-		
+		/*
+		 * Wurde so implementiert, um Text zwischen den Zutatenkategorien zu ermöglichen.
+		 * Perfomance technisch nicht schoen, aber da die Anzahl von Zutaten nicht so
+		 * groß ist, noch in Ordnung.
+		 */
+
 		System.out.println("Broetchen:");
 		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i] instanceof Broetchen) {
