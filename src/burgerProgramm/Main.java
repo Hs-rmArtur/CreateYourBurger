@@ -1,38 +1,107 @@
 package burgerProgramm;
 
+import java.util.Iterator;
+
 import de.hsrm.mi.prog.util.StaticScanner;
 
 public class Main {
 	final static Zutat[] ZUTATEN = generiereZutaten();
 
 	public static void main(String[] args) {
-		String command = "";
+		Burger[] burger = new Burger[10];
+		int currentBurger = 0;
+		Zutat currentZutat = null;
+
+		int zutatenNr = 0;
+		boolean zutatHinzugefuegt = false;
+
+		String eingabe = "";
+		String[] command;
 
 		druckeWillkommensText();
 		druckeAnleitung();
 
 		do {
-			command = StaticScanner.nextString();
-			command = command.toLowerCase();
+			eingabe = StaticScanner.nextString();
+			eingabe = eingabe.toLowerCase();
+			command = eingabe.split(" ");
 
-			switch (command) {
+			switch (command[0]) {
 			case "menu":
 				druckeMenu();
 				break;
-			case "neuer burger":
+			case "neuer":
+				if (burger[burger.length - 1] == null) {
+					for (int j = 0; j < burger.length; j++) {
+						if (burger[j] == null) {
+							burger[j] = new Burger(command[2]);
+							currentBurger = j;
+							break;
+						}
+					}
+
+					do {
+						System.out.println("Welches Broetchen soll dein Burger haben? ");
+						zutatenNr = StaticScanner.nextInt();
+						currentZutat = findeZutat(zutatenNr);
+					} while (!(currentZutat instanceof Broetchen));
+
+					burger[currentBurger].fuegeZutatHinzu(currentZutat);
+					System.out.println(currentZutat.toString());
+				}
+
+				do {
+					System.out.println();
+					System.out.println("Welche Zutat soll deinem Burger hinzugefuegt werden? ");
+					do {
+						eingabe = StaticScanner.nextString();
+						eingabe = eingabe.toLowerCase();
+						command = eingabe.split(" ");
+						if(command.length > 1) {
+							//Problem bei parseInt -> prüfen ob Int
+							currentZutat = findeZutat(Integer.parseInt(command[1]));
+						} else if(!(command[0].equalsIgnoreCase("ok"))){
+							currentZutat = findeZutat(Integer.parseInt(command[0]));
+						}
+						
+						if(currentZutat == null || currentZutat instanceof Broetchen) {
+							System.out.println("Keine gueltige Zutat!");
+						}
+					} while (currentZutat == null || currentZutat instanceof Broetchen);
+
+					zutatHinzugefuegt = burger[currentBurger].fuegeZutatHinzu(currentZutat);
+					System.out.println(currentZutat.toString());
+					if(zutatHinzugefuegt == false) {
+						System.out.println("Maximale Anzahl an Zutaten erreicht!");
+					}
+				} while (!(command[0].equalsIgnoreCase("ok") || zutatHinzugefuegt == false));
 
 				break;
-			case "zutat":
-
-				break;
-			case "ok":
-
-				break;
-			case "meine burger":
+			case "meine":
 
 				break;
 			case "bestellen":
-
+				int zubereitungsZeit = 0;
+				double gesamtPreis = 0;
+				
+				
+				for(int j = 0; j < burger.length; j++) {
+					if(burger[j] != null) {
+						burger[j].zeigeRezept();
+						
+						if(burger[j].berechneZubereitungszeit() > zubereitungsZeit) {
+							zubereitungsZeit = burger[j].berechneZubereitungszeit();
+						}
+						
+						gesamtPreis += burger[j].berechnePreis();
+						
+					}
+					
+				}
+				
+				System.out.println();
+				System.out.println("Gesamtzubereitungszeit: " + (zubereitungsZeit/60) + " Minuten und " + (zubereitungsZeit%60) + " Seekunden");
+				System.out.println("Gesamtpreis: " + gesamtPreis + " Euro");
 				break;
 			case "befehle":
 				druckeAnleitung();
@@ -45,7 +114,20 @@ public class Main {
 				System.out.println("Deine Eingabe war nicht korrekt. Versuche es gerne erneut.");
 			}
 
-		} while (!command.equalsIgnoreCase("bestellen") && !command.equalsIgnoreCase("abbruch"));
+		} while (!command[0].equalsIgnoreCase("bestellen") && !command[0].equalsIgnoreCase("abbruch"));
+	}
+
+	public static void fuegeBurgerZutathinzu(Burger burger, Zutat zutat) {
+		burger.fuegeZutatHinzu(zutat);
+	}
+
+	public static Zutat findeZutat(int zutatenNummer) {
+		for (int i = 0; i < ZUTATEN.length; i++) {
+			if (ZUTATEN[i].getNummer() == zutatenNummer) {
+				return ZUTATEN[i];
+			}
+		}
+		return null;
 	}
 
 	public static void druckeWillkommensText() {
@@ -74,9 +156,9 @@ public class Main {
 	public static void druckeMenu() {
 		/*
 		 * Wurde so implementiert, um Text zwischen den Zutatenkategorien zu
-		 * ermöglichen. Vorteil ist ebenfalls, dass die Reihenfolge der Zutaten in der Liste nicht
-		 * relevant ist. Perfomance technisch nicht schoen, aber da die Anzahl von Zutaten
-		 * nicht so groß ist, noch in Ordnung.
+		 * ermöglichen. Vorteil ist ebenfalls, dass die Reihenfolge der Zutaten in der
+		 * Liste nicht relevant ist. Perfomance technisch nicht schoen, aber da die
+		 * Anzahl von Zutaten nicht so groß ist, noch in Ordnung.
 		 */
 
 		System.out.println("Broetchen:");

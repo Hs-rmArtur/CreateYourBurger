@@ -100,14 +100,15 @@ public class Burger {
 	}
 
 
-	public void fuegeZutatHinzu(Zutat zutat) {
+	public boolean fuegeZutatHinzu(Zutat zutat) {
 		// Zutat wird hinzugefügt
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] == null) {
 				zutaten[i] = zutat;
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public void entferneZutat(Zutat zutat) {
