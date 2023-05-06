@@ -60,17 +60,17 @@ public class Burger {
 		}
 		return true;
 	}
-	
+
 	public String checkGeschmack() {
-		for(int i = 0; i < zutaten.length; i++) {
-			if(zutaten[i] instanceof Sauce) {
-				this.geschmack = ((Sauce)zutaten[i]).geschmack;
+		for (int i = 0; i < zutaten.length; i++) {
+			if (zutaten[i] instanceof Sauce) {
+				this.geschmack = ((Sauce) zutaten[i]).geschmack;
 			}
 		}
-		
+
 		return this.geschmack;
 	}
-	
+
 	public double berechneHoehe() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
@@ -82,23 +82,21 @@ public class Burger {
 
 	public double berechnePreis() {
 		for (int i = 0; i < zutaten.length; i++) {
-			if(zutaten[i] != null) {
+			if (zutaten[i] != null) {
 				this.preis += zutaten[i].preis;
 			}
 		}
 		return this.preis;
 	}
-	
 
 	public int berechneZubereitungszeit() {
 		for (int i = 0; i < zutaten.length; i++) {
-			if(zutaten[i] != null) {
+			if (zutaten[i] != null) {
 				this.zubereitungsZeit += zutaten[i].berechneZubereitungsZeit();
 			}
 		}
 		return this.zubereitungsZeit;
 	}
-
 
 	public boolean fuegeZutatHinzu(Zutat zutat) {
 		// Zutat wird hinzugefügt
@@ -113,58 +111,60 @@ public class Burger {
 
 	public void entferneZutat(Zutat zutat) {
 		// Zutat wird entfernt
-				for (int i = 0; i < zutaten.length; i++) {
-					if (zutaten[i] == zutat) {
-						zutaten[i] = null;
-						break;
-					}
-				}
-				
+		for (int i = 0; i < zutaten.length; i++) {
+			if (zutaten[i] == zutat) {
+				zutaten[i] = null;
+				break;
+			}
+		}
+
 	}
-	
+
 	public void zeigeRezept() {
 		System.out.println("Rezept - " + this.toString());
-		
+
 		System.out.print("Zutaten: ");
-		for(int i = 0; i < zutaten.length - 1; i++) {
-			if(zutaten[i] != null) {				
+		for (int i = 0; i < zutaten.length - 1; i++) {
+			if (zutaten[i] != null) {
 				System.out.print(zutaten[i].name + ", ");
 			}
 		}
-		//System.out.print(zutaten[temp].name + "\n");
+		// System.out.print(zutaten[temp].name + "\n");
 		System.out.println();
-		
+
 		System.out.println("Und so gehts:");
-		for(int i = 0; i < zutaten.length; i++) {
-			if(zutaten[i] != null) {
-				System.out.println(((char)('a' + i)) + " - " + zutaten[i].zubereiten());
+		for (int i = 0; i < zutaten.length; i++) {
+			if (zutaten[i] != null) {
+				System.out.println(((char) ('a' + i)) + " - " + zutaten[i].zubereiten());
 			}
 		}
-		
+
 	}
-	
+
+	public String getName() {
+		return this.name;
+	}
 
 	public String toString() {
 		String temp;
-	
-		
-		temp = this.name + " (" + (this.berechneHoehe()/100.0) + " cm";
-		
-		if(this.klassisch) {
+
+		temp = this.name + " (" + (this.berechneHoehe() / 100.0) + " cm";
+
+		if (this.klassisch) {
 			temp += ", klassisch";
-		} 
-		if(this.vegan) {
+		}
+		if (this.vegan) {
 			temp += ", vegan";
 		}
-		if(this.vegetarisch && this.vegan == false) {
+		if (this.vegetarisch && this.vegan == false) {
 			temp += ", vegetarisch";
 		}
-		if(!this.geschmack.equalsIgnoreCase("")) {
+		if (!this.geschmack.equalsIgnoreCase("")) {
 			temp += ", " + this.geschmack;
 		}
-		
+
 		temp += ") - " + this.berechnePreis() + " Euro";
-		
+
 		return temp;
 	}
 
