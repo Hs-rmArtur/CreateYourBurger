@@ -77,8 +77,14 @@ public class Burger {
 				this.hoehe += zutaten[i].berechneHoehe();
 			}
 		}
-		return this.hoehe;
+		return roundToTwoDecimals(this.hoehe);
 	}
+	
+
+	public double roundToTwoDecimals(double number) {
+		return Math.round(number * 100.0) / 100.0;
+	}
+
 
 	public double berechnePreis() {
 		for (int i = 0; i < zutaten.length; i++) {
@@ -86,7 +92,7 @@ public class Burger {
 				this.preis += zutaten[i].preis;
 			}
 		}
-		return this.preis;
+		return roundToTwoDecimals(this.preis);
 	}
 
 	public int berechneZubereitungszeit() {
@@ -148,7 +154,7 @@ public class Burger {
 	public String toString() {
 		String temp;
 
-		temp = this.name + " (" + (this.berechneHoehe() / 100.0) + " cm";
+		temp = this.name + " (" + this.berechneHoehe() + " cm";
 
 		if (this.klassisch) {
 			temp += ", klassisch";

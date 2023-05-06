@@ -30,14 +30,14 @@ public class Main {
 				if (commands.length > 2) {
 					aktuellerBurger = erstelleBurger(commands[2]);
 					belegeBurger(aktuellerBurger);
-
+					System.out.println("Bitte deine Eingabe:");
 				} else {
 					System.out.println("Du musst deinem Burger einen Namen geben!");
 				}
 
 				break;
 			case "meine":
-
+				zeigeAktBestellungen();
 				break;
 			case "bestellen":
 				bestellungAbgeben();
@@ -55,6 +55,14 @@ public class Main {
 			}
 
 		} while (!commands[0].equalsIgnoreCase("bestellen") && !commands[0].equalsIgnoreCase("abbruch"));
+	}
+
+	public static void zeigeAktBestellungen() {
+		for (int i = 0; i < burgerBestellungen.length; i++) {
+			if (burgerBestellungen[i] != null) {
+				System.out.println(burgerBestellungen[i].toString());
+			}
+		}
 	}
 
 	public static void bestellungAbgeben() {
@@ -133,7 +141,7 @@ public class Main {
 
 			zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
 
-			if (!zutatHinzugefuegt && !commands[0].equalsIgnoreCase(BURGER_OK)) {
+			if (!zutatHinzugefuegt) {
 				System.out.println("Maximale Anzahl an Zutaten erreicht!");
 			} else {
 				zaehlerZutaten++;
@@ -299,7 +307,7 @@ public class Main {
 
 				// Sauce(String name, int nummer, float preis, boolean klassisch, String typ,
 				// int menge, String geschmack) {
-				new Sauce("Ketchup", 50, 0.1, true, Zutat.VEGAN, 5, Sauce.NORMAL),
+				new Sauce("Ketchup", 50, 0.10, true, Zutat.VEGAN, 5, Sauce.NORMAL),
 				new Sauce("Sandwich-Sauce", 51, 0.15, true, Zutat.VEGETARISCH, 10, Sauce.NORMAL),
 				new Sauce("Chili-Sauce", 52, 0.25, false, Zutat.VEGAN, 8, Sauce.SCHARF),
 				new Sauce("Honig-Senf-Sauce", 53, 0.18, false, Zutat.VEGETARISCH, 8, Sauce.SUESS)

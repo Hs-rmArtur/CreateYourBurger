@@ -30,8 +30,4 @@ public class Sauce extends Zutat {
 		return 0;
 	}
 
-	public String toString() {
-		return super.toString() + "\nMenge: " + this.menge + ", Geschmack: " + this.geschmack;
-	}
-
 }
