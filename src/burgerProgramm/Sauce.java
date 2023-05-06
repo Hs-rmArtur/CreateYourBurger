@@ -1,7 +1,7 @@
 package burgerProgramm;
 
 public class Sauce extends Zutat {
-	public static final String SUESS = "sueß";
+	public static final String SUESS = "suess";
 	public static final String SCHARF = "scharf";
 	public static final String NORMAL = "normal";
 	
@@ -31,7 +31,7 @@ public class Sauce extends Zutat {
 	}
 
 	public String toString() {
-		return super.toString() + "\nMenge: " + this.menge + "  |  Geschmack: " + this.geschmack;
+		return super.toString() + "\nMenge: " + this.menge + ", Geschmack: " + this.geschmack;
 	}
 
 }

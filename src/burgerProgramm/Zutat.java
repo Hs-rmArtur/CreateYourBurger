@@ -4,7 +4,7 @@ public abstract class Zutat {
 	public static final String VEGETARISCH = "vegetarisch";
 	public static final String VEGAN = "vegan";
 	public static final String FLEISCHHALTIG = "";
-	
+
 	protected int nummer;
 	protected String name;
 	protected double preis;
@@ -22,9 +22,8 @@ public abstract class Zutat {
 			this.vegetarisch = true;
 		} else if (typ.equalsIgnoreCase(VEGAN)) {
 			this.vegan = true;
-		} 
-		
-		System.out.println(this.vegetarisch);
+		}
+
 	}
 
 	public Zutat(String name, int nummer, float preis, String typ) {
@@ -35,10 +34,14 @@ public abstract class Zutat {
 		this(name, nummer, preis, VEGETARISCH);
 	}
 
+	public int getNummer() {
+		return this.nummer;
+	}
+
 	public abstract String zubereiten();
-	
+
 	public abstract int berechneZubereitungsZeit();
-	
+
 	public abstract double berechneHoehe();
 
 	public String toString() {
@@ -46,19 +49,18 @@ public abstract class Zutat {
 		String typ = "";
 
 		if (this.klassisch) {
-			klassisch = "Ja";
+			klassisch = ", klassisch";
 		} else {
-			klassisch = "Nein";
+			klassisch = "";
 		}
 
 		if (this.vegan) {
-			typ = "vegan";
+			typ = ", vegan";
 		} else if (this.vegetarisch) {
-			typ = "vegetarisch";
+			typ = ", vegetarisch";
 		}
 
-		return "Name: " + this.name + "  |  Nummer: " + this.nummer + "  |  Preis: " + this.preis + "\nKlassisch: "
-				+ klassisch + "   " + typ;
+		return "Nr: " + this.nummer + ", " + this.name + ", Preis: " + this.preis + klassisch + typ;
 	}
 
 }
