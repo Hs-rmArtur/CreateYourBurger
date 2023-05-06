@@ -72,71 +72,48 @@ public class Main {
 	}
 
 	public static void druckeMenu() {
-		int zaehler = 0;
-
-		/*
-		 * Um zu ermöglichen, dass nach jeder Zutat zusätzlicher Text auftaucht, wurde
-		 * dies wie folgt gelöst. Nachteil: Kommt eine neue Zutatenkategorie hinzu,
-		 * müsste diese ergänzt werden. Vorraussetzung: Die Zutatenliste muss nach
-		 * Zutatenkategorien geordnet sein.
-		 */
+		
 		System.out.println("Broetchen:");
 		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i] instanceof Broetchen) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
-				zaehler++;
-			} else {
-				break;
 			}
 		}
 
 		System.out.println();
 		System.out.println("Bratlinge:");
-		for (int i = zaehler + 1; i < ZUTATEN.length; i++) {
+		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i] instanceof Bratling) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
-				zaehler++;
-			} else {
-				break;
 			}
 		}
 
 		System.out.println();
 		System.out.println("Salate:");
-		for (int i = zaehler + 1; i < ZUTATEN.length; i++) {
+		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i] instanceof Salat) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
-				;
-				zaehler++;
-			} else {
-				break;
 			}
 		}
 
 		System.out.println();
 		System.out.println("Gemuese:");
-		for (int i = zaehler + 1; i < ZUTATEN.length; i++) {
+		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i] instanceof Gemuese) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
-				zaehler++;
-			} else {
-				break;
 			}
 		}
 
 		System.out.println();
 		System.out.println("Saucen:");
-		for (int i = zaehler + 1; i < ZUTATEN.length; i++) {
+		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i] instanceof Sauce) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
-				zaehler++;
-			} else {
-				break;
 			}
 		}
 
