@@ -1,7 +1,7 @@
 package burgerProgramm;
 
 public class Burger {
-	public static final int MAX_ZUTATEN = 9;
+	private static final int MAX_ZUTATEN = 9;
 
 	private String name;
 	private Zutat[] zutaten;
@@ -27,11 +27,7 @@ public class Burger {
 		this.geschmack = "";
 	}
 
-	public Zutat[] getZutaten() {
-		return zutaten;
-	}
-	
-	public boolean checkObVegan() {
+	public boolean pruefObVegan() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				if (!zutaten[i].vegan) {
@@ -42,7 +38,7 @@ public class Burger {
 		return true;
 	}
 
-	public boolean checkObVegetarisch() {
+	public boolean pruefObVegetarisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				if (!zutaten[i].vegetarisch) {
@@ -54,7 +50,7 @@ public class Burger {
 
 	}
 
-	public boolean checkObKlassisch() {
+	public boolean pruefObKlassisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				if (!zutaten[i].klassisch) {
@@ -81,14 +77,12 @@ public class Burger {
 				this.hoehe += zutaten[i].berechneHoehe();
 			}
 		}
-		return roundToTwoDecimals(this.hoehe);
+		return rundeAufZweiNachkomma(this.hoehe);
 	}
-	
 
-	public double roundToTwoDecimals(double number) {
+	public double rundeAufZweiNachkomma(double number) {
 		return Math.round(number * 100.0) / 100.0;
 	}
-
 
 	public double berechnePreis() {
 		for (int i = 0; i < zutaten.length; i++) {
@@ -96,7 +90,7 @@ public class Burger {
 				this.preis += zutaten[i].preis;
 			}
 		}
-		return roundToTwoDecimals(this.preis);
+		return rundeAufZweiNachkomma(this.preis);
 	}
 
 	public int berechneZubereitungszeit() {
@@ -108,7 +102,24 @@ public class Burger {
 		return this.zubereitungsZeit;
 	}
 
+	private void pruefeObZutatKlassisch(Zutat zutat) {
+		if (!zutat.klassisch) {
+			this.klassisch = false;
+		}
+	}
+
+	private void pruefeTypVonZutat(Zutat zutat) {
+		if (!zutat.vegan) {
+			this.vegan = false;
+		} else if (!zutat.vegetarisch) {
+			this.vegetarisch = false;
+		}
+	}
+
 	public boolean fuegeZutatHinzu(Zutat zutat) {
+		pruefeTypVonZutat(zutat);
+		pruefeObZutatKlassisch(zutat);
+
 		// Zutat wird hinzugefügt
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] == null) {
@@ -130,6 +141,16 @@ public class Burger {
 
 	}
 
+	public String gebeZutatenAus() {
+		String output = "";
+		for (int i = 0; i < zutaten.length; i++) {
+			if (zutaten[i] != null) {
+				output += "    " + zutaten[i].toString() + "\n";
+			}
+		}
+		return output;
+	}
+
 	public void zeigeRezept() {
 		System.out.println("Rezept - " + this.toString());
 
@@ -139,7 +160,6 @@ public class Burger {
 				System.out.print(zutaten[i].name + ", ");
 			}
 		}
-		// System.out.print(zutaten[temp].name + "\n");
 		System.out.println();
 
 		System.out.println("Und so gehts:");
