@@ -118,6 +118,7 @@ public class Main {
 		System.out.println();
 		System.out.println("Mit was moechtest du deinen Burger belegen? ");
 		System.out.println("Mit 'ok' kannst du deine Zusammenstellung abschließen.");
+		
 		do {
 			// Prozedur zur Abfragung der Zutaten
 			do {
@@ -126,7 +127,7 @@ public class Main {
 				commands = bearbeiteBefehle(eingabe);
 
 				if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
-					zutatenNr = Integer.parseInt(commands[0]);
+					zutatenNr = sucheNummer(commands);
 					aktuelleZutat = findeZutat(zutatenNr);
 
 					if (aktuelleZutat == null) {
@@ -139,7 +140,9 @@ public class Main {
 
 			} while (aktuelleZutat == null || aktuelleZutat instanceof Broetchen);
 
-			zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
+			if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
+				zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
+			}
 
 			if (!zutatHinzugefuegt) {
 				System.out.println("Maximale Anzahl an Zutaten erreicht!");
@@ -148,8 +151,7 @@ public class Main {
 				System.out.println("> Zutat " + aktuelleZutat.nummer);
 				System.out.println(aktuelleZutat.name + " - " + aktuelleZutat.preis + " Euro");
 			}
-
-		} while (!(commands[0].equalsIgnoreCase(BURGER_OK)));
+		}while (!(commands[0].equalsIgnoreCase(BURGER_OK)));
 
 		System.out.println("Dein Burger '" + burger.getName() + "' wird der Bestellung hinzugefuegt.");
 
@@ -223,6 +225,21 @@ public class Main {
 		System.out.println();
 		System.out.println("Bitte deine Eingabe:");
 		System.out.println();
+	}
+	
+	public static int sucheNummer(String[] command) {
+		int koordinaten = 0;
+		
+		for(int i = 0; i < command.length; i++) {
+			if (command[i].contains("1") || command[i].contains("2") || command[i].contains("3") ||
+				command[i].contains("4") || command[i].contains("5") || command[i].contains("6") ||
+				command[i].contains("7") || command[i].contains("8") || command[i].contains("9") ||
+				command[i].contains("0")) {
+				koordinaten = Integer.parseInt(command[i]);
+			}
+		}
+		
+		return koordinaten;
 	}
 
 	public static void druckeMenu() {
