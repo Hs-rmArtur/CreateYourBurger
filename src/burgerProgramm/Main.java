@@ -122,6 +122,7 @@ public class Main {
 		int zutatenNr;
 		int zaehlerZutaten = 1;
 		boolean zutatHinzugefuegt = false;
+		boolean befehlAusgefuehrt = false;
 
 		System.out.println();
 		System.out.println("Mit was moechtest du deinen Burger belegen? ");
@@ -133,8 +134,9 @@ public class Main {
 				System.out.println("Bitte gib die " + zaehlerZutaten + ". Zutat an:");
 				eingabe = StaticScanner.nextString();
 				commands = bearbeiteBefehle(eingabe);
-
-				if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
+				befehlAusgefuehrt = doAllgemeineBefehle(commands);
+				
+				if (!commands[0].equalsIgnoreCase(BURGER_OK) && befehlAusgefuehrt == false) {
 					zutatenNr = sucheNummer(commands);
 					aktuelleZutat = findeZutat(zutatenNr);
 
@@ -146,7 +148,7 @@ public class Main {
 					}
 				}
 
-			} while (aktuelleZutat == null || aktuelleZutat instanceof Broetchen);
+			} while (aktuelleZutat == null || aktuelleZutat instanceof Broetchen || befehlAusgefuehrt == true);
 
 			if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
 				zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
@@ -191,17 +193,22 @@ public class Main {
 		int zutatenNr = 0;
 		String eingabe = "";
 		String[] commands;
+		boolean befehlAusgefuehrt = false;
 
 		do {
 			System.out.println("Aus welchem Broetchen soll dein Burger bestehen? ");
 			eingabe = StaticScanner.nextString();
 			commands = bearbeiteBefehle(eingabe);
-			zutatenNr = sucheNummer(commands);
-			aktuelleZutat = findeZutat(zutatenNr);
-			if (!(aktuelleZutat instanceof Broetchen)) {
-				System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
+			befehlAusgefuehrt = doAllgemeineBefehle(commands);
+			
+			if(befehlAusgefuehrt == false) {
+				zutatenNr = sucheNummer(commands);
+				aktuelleZutat = findeZutat(zutatenNr);
+				if (!(aktuelleZutat instanceof Broetchen)) {
+					System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
+				}
 			}
-		} while (!(aktuelleZutat instanceof Broetchen));
+		} while (!(aktuelleZutat instanceof Broetchen) || befehlAusgefuehrt);
 
 		burger.fuegeZutatHinzu(aktuelleZutat);
 		System.out.println(aktuelleZutat.toString());
@@ -230,12 +237,20 @@ public class Main {
 		System.out.println("Mit 'Menu' kannst du dir alle zur Verfügung stehenden Zutaten anzeigen lassen.");
 		System.out.println("Mit 'neuer Burger <Name>' beginnst du die Kreation deines Burgers.");
 		System.out.println("Mit 'meine Burger' gibst du dir alle bereits erstellten Kreationen aus.");
-		System.out.println(
-				"Mit 'bestellen' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
+		System.out.println("Mit 'bestellen' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
 		System.out.println("Mit 'Befehle' lässt du dir diese Befehlsliste erneut ausgeben.");
 		System.out.println("Mit 'abbruch' brichst du deine gesamte Bestellung ab.");
 		System.out.println();
 		System.out.println("Bitte deine Eingabe:");
+	}
+	
+	public static void druckeBelegBefehle() {
+		System.out.println("Wie es funktioniert:");
+		System.out.println("Mit 'Menu' kannst du dir alle zur Verfügung stehenden Zutaten anzeigen lassen.");
+		System.out.println("Mit 'meine Burger' gibst du dir alle bereits erstellten Kreationen aus.");
+		System.out.println("Mit 'Zutat <Nummer>' fuegst du deinem Burger die Zutat mit der entspraechenden Nummer hinzu.");
+		System.out.println("Mit 'Befehle' lässt du dir diese Befehlsliste erneut ausgeben.");
+		System.out.println();
 	}
 
 	public static int sucheNummer(String[] command) {
@@ -251,6 +266,22 @@ public class Main {
 		}
 
 		return koordinaten;
+	}
+	
+	public static boolean doAllgemeineBefehle(String[] commands) {
+		switch (commands[0]) {
+		case "menu":
+			druckeMenu();
+			return true;
+		case "meine":
+			zeigeAktBestellungen();
+			return true;
+		case "befehle":
+			druckeBelegBefehle();
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	public static void druckeMenu() {
