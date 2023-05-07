@@ -36,7 +36,11 @@ public class Main {
 				case BEFEHL_NEUER_BURGER:
 					if (befehle.length > 2) {
 						aktuellerBurger = erstelleBurger(befehle[INDEX_BURGERNAME]);
-						belegeBurger(aktuellerBurger);
+						
+						if(aktuellerBurger != null) {
+							belegeBurger(aktuellerBurger);							
+						}
+						
 						System.out.println("Bitte deine Eingabe:");
 					} else {
 						System.out.println("Du musst deinem Burger einen Namen geben!");
@@ -82,6 +86,7 @@ public class Main {
 				}
 
 				gesamtPreis += burgerBestellungen[j].berechnePreis();
+				System.out.println();
 			}
 		}
 
@@ -180,11 +185,12 @@ public class Main {
 
 			initialisiereBurgerMitBroetchen(aktuellerBurger);
 
+			return aktuellerBurger;
 		} else {
 			System.out.println("Du hast deine maximale Anzahl an Burgern erstellt. Zeit diese zu bestellen!");
+			return null;
 		}
 
-		return aktuellerBurger;
 	}
 
 	public static void initialisiereBurgerMitBroetchen(Burger burger) {
@@ -378,9 +384,11 @@ public class Main {
 				new Bratling("Falafel-Bratling", 22, 1.45, false, Zutat.VEGAN, 210, 21),
 				new Bratling("Gemuese-Bratling", 23, 1.75, false, Zutat.VEGETARISCH, 240, 25),
 
-				new Salat("Eisbergsalat", 30, 0.18, true), new Salat("Rucolasalat", 31, 0.25, false),
+				new Salat("Eisbergsalat", 30, 0.18, true),
+				new Salat("Rucolasalat", 31, 0.25, false),
 
-				new Gemuese("Tomate", 40, 0.25, true, 3, 3), new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
+				new Gemuese("Tomate", 40, 0.25, true, 3, 3),
+				new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
 				new Gemuese("Rote Zwiebelringe", 42, 0.08, false, 5, 2),
 				new Gemuese("Jalapeno-Ringe", 43, 0.08, false, 5, 2),
 
