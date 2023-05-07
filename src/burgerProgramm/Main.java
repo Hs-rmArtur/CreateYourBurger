@@ -301,7 +301,8 @@ public class Main {
 				// Gemuese(String name, int nummer, float preis, boolean klassisch, String typ,
 				// int scheibenAnzahl,
 				// int scheibenDicke
-				new Gemuese("Tomate", 40, 0.25, true, 3, 3), new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
+				new Gemuese("Tomate", 40, 0.25, true, 3, 3),
+				new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
 				new Gemuese("Rote Zwiebelringe", 42, 0.08, false, 5, 2),
 				new Gemuese("Jalapeno-Ringe", 43, 0.08, false, 5, 2),
 
