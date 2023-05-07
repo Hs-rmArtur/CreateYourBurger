@@ -21,6 +21,7 @@ public class Main {
 		do {
 			eingabe = StaticScanner.nextString();
 			commands = bearbeiteBefehle(eingabe);
+			System.out.println();
 
 			switch (commands[0]) {
 			case "menu":
@@ -58,9 +59,16 @@ public class Main {
 	}
 
 	public static void zeigeAktBestellungen() {
+		Zutat[] burgerZutaten = new Zutat[Burger.MAX_ZUTATEN];
 		for (int i = 0; i < burgerBestellungen.length; i++) {
 			if (burgerBestellungen[i] != null) {
 				System.out.println(burgerBestellungen[i].toString());
+				for (int j = 0; j < burgerBestellungen[i].getZutaten().length; j++) {
+					burgerZutaten = burgerBestellungen[i].getZutaten();
+					if (burgerZutaten[j] != null) {
+						System.out.println("    " + burgerZutaten[j].toString());
+					}
+				}
 			}
 		}
 	}
@@ -118,7 +126,7 @@ public class Main {
 		System.out.println();
 		System.out.println("Mit was moechtest du deinen Burger belegen? ");
 		System.out.println("Mit 'ok' kannst du deine Zusammenstellung abschließen.");
-		
+
 		do {
 			// Prozedur zur Abfragung der Zutaten
 			do {
@@ -146,12 +154,12 @@ public class Main {
 
 			if (!zutatHinzugefuegt) {
 				System.out.println("Maximale Anzahl an Zutaten erreicht!");
-			} else {
+			} else if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
 				zaehlerZutaten++;
 				System.out.println("> Zutat " + aktuelleZutat.nummer);
 				System.out.println(aktuelleZutat.name + " - " + aktuelleZutat.preis + " Euro");
 			}
-		}while (!(commands[0].equalsIgnoreCase(BURGER_OK)));
+		} while (!(commands[0].equalsIgnoreCase(BURGER_OK)));
 
 		System.out.println("Dein Burger '" + burger.getName() + "' wird der Bestellung hinzugefuegt.");
 
@@ -181,10 +189,14 @@ public class Main {
 	public static void initialisiereBurgerMitBroetchen(Burger burger) {
 		Zutat aktuelleZutat = null;
 		int zutatenNr = 0;
+		String eingabe = "";
+		String[] commands;
 
 		do {
 			System.out.println("Aus welchem Broetchen soll dein Burger bestehen? ");
-			zutatenNr = StaticScanner.nextInt();
+			eingabe = StaticScanner.nextString();
+			commands = bearbeiteBefehle(eingabe);
+			zutatenNr = sucheNummer(commands);
 			aktuelleZutat = findeZutat(zutatenNr);
 			if (!(aktuelleZutat instanceof Broetchen)) {
 				System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
@@ -224,21 +236,20 @@ public class Main {
 		System.out.println("Mit 'abbruch' brichst du deine gesamte Bestellung ab.");
 		System.out.println();
 		System.out.println("Bitte deine Eingabe:");
-		System.out.println();
 	}
-	
+
 	public static int sucheNummer(String[] command) {
 		int koordinaten = 0;
-		
-		for(int i = 0; i < command.length; i++) {
-			if (command[i].contains("1") || command[i].contains("2") || command[i].contains("3") ||
-				command[i].contains("4") || command[i].contains("5") || command[i].contains("6") ||
-				command[i].contains("7") || command[i].contains("8") || command[i].contains("9") ||
-				command[i].contains("0")) {
+
+		for (int i = 0; i < command.length; i++) {
+			if (command[i].contains("1") || command[i].contains("2") || command[i].contains("3")
+					|| command[i].contains("4") || command[i].contains("5") || command[i].contains("6")
+					|| command[i].contains("7") || command[i].contains("8") || command[i].contains("9")
+					|| command[i].contains("0")) {
 				koordinaten = Integer.parseInt(command[i]);
 			}
 		}
-		
+
 		return koordinaten;
 	}
 
@@ -318,8 +329,7 @@ public class Main {
 				// Gemuese(String name, int nummer, float preis, boolean klassisch, String typ,
 				// int scheibenAnzahl,
 				// int scheibenDicke
-				new Gemuese("Tomate", 40, 0.25, true, 3, 3),
-				new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
+				new Gemuese("Tomate", 40, 0.25, true, 3, 3), new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
 				new Gemuese("Rote Zwiebelringe", 42, 0.08, false, 5, 2),
 				new Gemuese("Jalapeno-Ringe", 43, 0.08, false, 5, 2),
 
