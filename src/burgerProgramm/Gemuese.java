@@ -19,7 +19,10 @@ public class Gemuese extends Zutat {
 		String temp = this.name + " wird gewaschen.\n";
 	
 		for (int i = 1; i <= this.scheibenAnzahl; i++) {
-			temp += "     " + i + ". Scheibe mit " + this.scheibenDicke + " mm schneiden.\n";
+			temp += "\t" + i + ". Scheibe mit " + this.scheibenDicke + " mm schneiden.";
+			if(i < this.scheibenAnzahl) {
+				temp += "\n";
+			}
 		}
 		return temp;
 	}

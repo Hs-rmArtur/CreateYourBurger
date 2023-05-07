@@ -31,38 +31,29 @@ public class Main {
 			befehle = bearbeiteBefehle(eingabe);
 			System.out.println();
 
-			switch (befehle[INDEX_HAUPTBEFEHL]) {
-			case BEFEHL_MENU:
-				druckeMenu();
-				break;
-			case BEFEHL_NEUER_BURGER:
-				if (befehle.length > 2) {
-					aktuellerBurger = erstelleBurger(befehle[INDEX_BURGERNAME]);
-					belegeBurger(aktuellerBurger);
-					System.out.println("Bitte deine Eingabe:");
-				} else {
-					System.out.println("Du musst deinem Burger einen Namen geben!");
+			if (fuehreAllgemeineBefehleAus(befehle) == false) {
+				switch (befehle[INDEX_HAUPTBEFEHL]) {
+				case BEFEHL_NEUER_BURGER:
+					if (befehle.length > 2) {
+						aktuellerBurger = erstelleBurger(befehle[INDEX_BURGERNAME]);
+						belegeBurger(aktuellerBurger);
+						System.out.println("Bitte deine Eingabe:");
+					} else {
+						System.out.println("Du musst deinem Burger einen Namen geben!");
+					}
+					
+					break;
+				case BEFEHL_BESTELLEN:
+					bestellungAbgeben();
+					
+					break;
+				case BEFEHL_ABBRECHEN:
+					System.out.println("Dein Bestellvorgang wurde abgebrochen.");
+					
+					break;
+				default:
+					System.out.println("Deine Eingabe war nicht korrekt. Versuche es gerne erneut.");
 				}
-
-				break;
-			case BEFEHL_MEINE_BURGER:
-				zeigeAktBestellungen();
-
-				break;
-			case BEFEHL_BESTELLEN:
-				bestellungAbgeben();
-
-				break;
-			case BEFEHL_ZEIGE_BEFEHLE:
-				druckeAnleitung(false);
-
-				break;
-			case BEFEHL_ABBRECHEN:
-				System.out.println("Dein Bestellvorgang wurde abgebrochen.");
-
-				break;
-			default:
-				System.out.println("Deine Eingabe war nicht korrekt. Versuche es gerne erneut.");
 			}
 
 		} while (!befehle[INDEX_HAUPTBEFEHL].equals(BEFEHL_BESTELLEN)
@@ -244,23 +235,26 @@ public class Main {
 		System.out.println("Wie es funktioniert:");
 		System.out.println(
 				"Mit '" + BEFEHL_MENU + "' kannst du dir alle zur Verfügung stehenden Zutaten anzeigen lassen.");
+		
 		if (!imBelegProzess) {
 			System.out.println(
 					"Mit '" + BEFEHL_NEUER_BURGER + " Burger <Name>' beginnst du die Kreation deines Burgers.");
-		}
+			
+			System.out.println("Mit '" + BEFEHL_BESTELLEN
+					+ "' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
 
-		System.out.println(
-				"Mit '<Zutatennummer>' fuegst du im Kreationsprozess deinem Burger die Zutat mit der entspraechenden Nummer hinzu.");
+			System.out.println("Mit '" + BEFEHL_ABBRECHEN + "' brichst du deine gesamte Bestellung ab.");
+		}
+		
+		if (imBelegProzess) {
+			System.out.println(
+					"Mit '<Zutatennummer>' fuegst du im Kreationsprozess deinem Burger die Zutat mit der entspraechenden Nummer hinzu.");			
+		}
 
 		System.out.println(
 				"Mit '" + BEFEHL_MEINE_BURGER + " Burger' gibst du dir alle bereits erstellten Kreationen aus.");
 
-		if (!imBelegProzess) {
-			System.out.println("Mit '" + BEFEHL_BESTELLEN
-					+ "' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
-		}
 		System.out.println("Mit '" + BEFEHL_ZEIGE_BEFEHLE + "' lässt du dir diese Befehlsliste erneut ausgeben.");
-		System.out.println("Mit '" + BEFEHL_ABBRECHEN + "' brichst du deine gesamte Bestellung ab.");
 
 		System.out.println();
 		System.out.println("Bitte deine Eingabe:");
@@ -270,10 +264,32 @@ public class Main {
 		int nummer = 0;
 
 		for (int i = 0; i < befehle.length; i++) {
-			if (befehle[i].contains("1") || befehle[i].contains("2") || befehle[i].contains("3")
+			if ((befehle[i].contains("1") || befehle[i].contains("2") || befehle[i].contains("3")
 					|| befehle[i].contains("4") || befehle[i].contains("5") || befehle[i].contains("6")
 					|| befehle[i].contains("7") || befehle[i].contains("8") || befehle[i].contains("9")
-					|| befehle[i].contains("0")) {
+					|| befehle[i].contains("0")) 
+					&& (!(befehle[i].contains("a")) && !(befehle[i].contains("b")) && !(befehle[i].contains("c")) 
+					&& !(befehle[i].contains("d")) && !(befehle[i].contains("e")) && !(befehle[i].contains("f")) 
+					&& !(befehle[i].contains("g")) && !(befehle[i].contains("h")) && !(befehle[i].contains("i")) 
+					&& !(befehle[i].contains("j")) && !(befehle[i].contains("k")) && !(befehle[i].contains("l")) 
+					&& !(befehle[i].contains("m")) && !(befehle[i].contains("n")) && !(befehle[i].contains("o")) 
+					&& !(befehle[i].contains("p")) && !(befehle[i].contains("q")) && !(befehle[i].contains("r")) 
+					&& !(befehle[i].contains("s")) && !(befehle[i].contains("t")) && !(befehle[i].contains("u")) 
+					&& !(befehle[i].contains("v")) && !(befehle[i].contains("w")) && !(befehle[i].contains("x")) 
+					&& !(befehle[i].contains("y")) && !(befehle[i].contains("z")) && !(befehle[i].contains("µ"))
+					&& !(befehle[i].contains("!")) && !(befehle[i].contains("§")) && !(befehle[i].contains("$"))
+					&& !(befehle[i].contains("%")) && !(befehle[i].contains("&")) && !(befehle[i].contains("/"))
+					&& !(befehle[i].contains("(")) && !(befehle[i].contains(")")) && !(befehle[i].contains("="))
+					&& !(befehle[i].contains("?")) && !(befehle[i].contains("`")) && !(befehle[i].contains("+"))
+					&& !(befehle[i].contains("*")) && !(befehle[i].contains("#")) && !(befehle[i].contains("'"))
+					&& !(befehle[i].contains("_")) && !(befehle[i].contains("-")) && !(befehle[i].contains("."))
+					&& !(befehle[i].contains(":")) && !(befehle[i].contains(";")) && !(befehle[i].contains(","))
+					&& !(befehle[i].contains("<")) && !(befehle[i].contains(">")) && !(befehle[i].contains("^"))
+					&& !(befehle[i].contains("°")) && !(befehle[i].contains("²")) && !(befehle[i].contains("³"))
+					&& !(befehle[i].contains("{")) && !(befehle[i].contains("[")) && !(befehle[i].contains("]"))
+					&& !(befehle[i].contains("}")) && !(befehle[i].contains("ß")) && !(befehle[i].contains("\\"))
+					&& !(befehle[i].contains("\"")) && !(befehle[i].contains("~")) && !(befehle[i].contains("@"))
+					&& !(befehle[i].contains("€")) && !(befehle[i].contains("´")) && !(befehle[i].contains("|")))) {
 				nummer = Integer.parseInt(befehle[i]);
 			}
 		}
