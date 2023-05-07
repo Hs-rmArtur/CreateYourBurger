@@ -1,7 +1,7 @@
 package burgerProgramm;
 
 public class Burger {
-	private static final int MAX_ZUTATEN = 9;
+	public static final int MAX_ZUTATEN = 9;
 
 	private String name;
 	private Zutat[] zutaten;
@@ -27,6 +27,10 @@ public class Burger {
 		this.geschmack = "";
 	}
 
+	public Zutat[] getZutaten() {
+		return zutaten;
+	}
+	
 	public boolean checkObVegan() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {

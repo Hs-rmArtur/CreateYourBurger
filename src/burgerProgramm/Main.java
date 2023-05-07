@@ -21,6 +21,7 @@ public class Main {
 		do {
 			eingabe = StaticScanner.nextString();
 			commands = bearbeiteBefehle(eingabe);
+			System.out.println();
 
 			switch (commands[0]) {
 			case "menu":
@@ -58,9 +59,16 @@ public class Main {
 	}
 
 	public static void zeigeAktBestellungen() {
+		Zutat[] burgerZutaten = new Zutat[Burger.MAX_ZUTATEN];
 		for (int i = 0; i < burgerBestellungen.length; i++) {
 			if (burgerBestellungen[i] != null) {
 				System.out.println(burgerBestellungen[i].toString());
+				for (int j = 0; j < burgerBestellungen[i].getZutaten().length; j++) {
+					burgerZutaten = burgerBestellungen[i].getZutaten();
+					if (burgerZutaten[j] != null) {
+						System.out.println("    " + burgerZutaten[j].toString());
+					}
+				}
 			}
 		}
 	}
@@ -114,19 +122,22 @@ public class Main {
 		int zutatenNr;
 		int zaehlerZutaten = 1;
 		boolean zutatHinzugefuegt = false;
+		boolean befehlAusgefuehrt = false;
 
 		System.out.println();
 		System.out.println("Mit was moechtest du deinen Burger belegen? ");
 		System.out.println("Mit 'ok' kannst du deine Zusammenstellung abschließen.");
+
 		do {
 			// Prozedur zur Abfragung der Zutaten
 			do {
 				System.out.println("Bitte gib die " + zaehlerZutaten + ". Zutat an:");
 				eingabe = StaticScanner.nextString();
 				commands = bearbeiteBefehle(eingabe);
-
-				if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
-					zutatenNr = Integer.parseInt(commands[0]);
+				befehlAusgefuehrt = doAllgemeineBefehle(commands);
+				
+				if (!commands[0].equalsIgnoreCase(BURGER_OK) && befehlAusgefuehrt == false) {
+					zutatenNr = sucheNummer(commands);
 					aktuelleZutat = findeZutat(zutatenNr);
 
 					if (aktuelleZutat == null) {
@@ -137,18 +148,19 @@ public class Main {
 					}
 				}
 
-			} while (aktuelleZutat == null || aktuelleZutat instanceof Broetchen);
+			} while (aktuelleZutat == null || aktuelleZutat instanceof Broetchen || befehlAusgefuehrt == true);
 
-			zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
+			if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
+				zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
+			}
 
 			if (!zutatHinzugefuegt) {
 				System.out.println("Maximale Anzahl an Zutaten erreicht!");
-			} else {
+			} else if (!commands[0].equalsIgnoreCase(BURGER_OK)) {
 				zaehlerZutaten++;
 				System.out.println("> Zutat " + aktuelleZutat.nummer);
 				System.out.println(aktuelleZutat.name + " - " + aktuelleZutat.preis + " Euro");
 			}
-
 		} while (!(commands[0].equalsIgnoreCase(BURGER_OK)));
 
 		System.out.println("Dein Burger '" + burger.getName() + "' wird der Bestellung hinzugefuegt.");
@@ -179,15 +191,24 @@ public class Main {
 	public static void initialisiereBurgerMitBroetchen(Burger burger) {
 		Zutat aktuelleZutat = null;
 		int zutatenNr = 0;
+		String eingabe = "";
+		String[] commands;
+		boolean befehlAusgefuehrt = false;
 
 		do {
 			System.out.println("Aus welchem Broetchen soll dein Burger bestehen? ");
-			zutatenNr = StaticScanner.nextInt();
-			aktuelleZutat = findeZutat(zutatenNr);
-			if (!(aktuelleZutat instanceof Broetchen)) {
-				System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
+			eingabe = StaticScanner.nextString();
+			commands = bearbeiteBefehle(eingabe);
+			befehlAusgefuehrt = doAllgemeineBefehle(commands);
+			
+			if(befehlAusgefuehrt == false) {
+				zutatenNr = sucheNummer(commands);
+				aktuelleZutat = findeZutat(zutatenNr);
+				if (!(aktuelleZutat instanceof Broetchen)) {
+					System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
+				}
 			}
-		} while (!(aktuelleZutat instanceof Broetchen));
+		} while (!(aktuelleZutat instanceof Broetchen) || befehlAusgefuehrt);
 
 		burger.fuegeZutatHinzu(aktuelleZutat);
 		System.out.println(aktuelleZutat.toString());
@@ -216,13 +237,51 @@ public class Main {
 		System.out.println("Mit 'Menu' kannst du dir alle zur Verfügung stehenden Zutaten anzeigen lassen.");
 		System.out.println("Mit 'neuer Burger <Name>' beginnst du die Kreation deines Burgers.");
 		System.out.println("Mit 'meine Burger' gibst du dir alle bereits erstellten Kreationen aus.");
-		System.out.println(
-				"Mit 'bestellen' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
+		System.out.println("Mit 'bestellen' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
 		System.out.println("Mit 'Befehle' lässt du dir diese Befehlsliste erneut ausgeben.");
 		System.out.println("Mit 'abbruch' brichst du deine gesamte Bestellung ab.");
 		System.out.println();
 		System.out.println("Bitte deine Eingabe:");
+	}
+	
+	public static void druckeBelegBefehle() {
+		System.out.println("Wie es funktioniert:");
+		System.out.println("Mit 'Menu' kannst du dir alle zur Verfügung stehenden Zutaten anzeigen lassen.");
+		System.out.println("Mit 'meine Burger' gibst du dir alle bereits erstellten Kreationen aus.");
+		System.out.println("Mit 'Zutat <Nummer>' fuegst du deinem Burger die Zutat mit der entspraechenden Nummer hinzu.");
+		System.out.println("Mit 'Befehle' lässt du dir diese Befehlsliste erneut ausgeben.");
 		System.out.println();
+	}
+
+	public static int sucheNummer(String[] command) {
+		int koordinaten = 0;
+
+		for (int i = 0; i < command.length; i++) {
+			if (command[i].contains("1") || command[i].contains("2") || command[i].contains("3")
+					|| command[i].contains("4") || command[i].contains("5") || command[i].contains("6")
+					|| command[i].contains("7") || command[i].contains("8") || command[i].contains("9")
+					|| command[i].contains("0")) {
+				koordinaten = Integer.parseInt(command[i]);
+			}
+		}
+
+		return koordinaten;
+	}
+	
+	public static boolean doAllgemeineBefehle(String[] commands) {
+		switch (commands[0]) {
+		case "menu":
+			druckeMenu();
+			return true;
+		case "meine":
+			zeigeAktBestellungen();
+			return true;
+		case "befehle":
+			druckeBelegBefehle();
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	public static void druckeMenu() {
