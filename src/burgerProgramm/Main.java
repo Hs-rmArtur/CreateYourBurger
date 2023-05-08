@@ -13,7 +13,7 @@ public class Main {
 
 	private final static int INDEX_HAUPTBEFEHL = 0;
 	private final static int INDEX_BURGERNAME = 2;
-	private final static int MAX_ANZ_BURGER = 10;
+	private final static int MAX_ANZ_BURGER = 3;
 	private final static Zutat[] ZUTATEN = generiereZutaten();
 
 	private static Burger[] burgerBestellungen = new Burger[MAX_ANZ_BURGER];
@@ -25,15 +25,17 @@ public class Main {
 
 		druckeWillkommensText();
 		druckeAnleitung(false);
-
+		
 		do {
 			eingabe = StaticScanner.nextString();
 			befehle = bearbeiteBefehle(eingabe);
 			System.out.println();
 
-			if (fuehreAllgemeineBefehleAus(befehle) == false) {
+			if (fuehreAllgemeineBefehleAus(befehle, false) == false) {
 				switch (befehle[INDEX_HAUPTBEFEHL]) {
 				case BEFEHL_NEUER_BURGER:
+					
+					//Pruefe, ob dritte Stelle im Befehl vorhanden ist
 					if (befehle.length > 2) {
 						aktuellerBurger = erstelleBurger(befehle[INDEX_BURGERNAME]);
 						
@@ -65,35 +67,43 @@ public class Main {
 	}
 
 	public static void zeigeAktBestellungen() {
+		System.out.println("Deine aktuellen Bestellungen: ");
 		for (int i = 0; i < burgerBestellungen.length; i++) {
 			if (burgerBestellungen[i] != null) {
 				System.out.println(burgerBestellungen[i].toString());
 				System.out.println(burgerBestellungen[i].gebeZutatenAus());
 			}
 		}
+		System.out.println();
+		System.out.println("Bitte deine Eingabe: ");
 	}
 
 	public static void bestellungAbgeben() {
 		int zubereitungsZeit = 0;
+		int tempZeit = 0;
 		double gesamtPreis = 0;
+		String strGesamtpreis;
 
-		for (int j = 0; j < burgerBestellungen.length; j++) {
-			if (burgerBestellungen[j] != null) {
-				burgerBestellungen[j].zeigeRezept();
+		for (int i = 0; i < burgerBestellungen.length; i++) {
+			if (burgerBestellungen[i] != null) {
+				burgerBestellungen[i].zeigeRezept();
+				tempZeit = burgerBestellungen[i].berechneZubereitungszeit();
 
-				if (burgerBestellungen[j].berechneZubereitungszeit() > zubereitungsZeit) {
-					zubereitungsZeit = burgerBestellungen[j].berechneZubereitungszeit();
+				//ermittle die höchste Zubereitungszeit der Burger
+				if (tempZeit > zubereitungsZeit) {
+					zubereitungsZeit = tempZeit;
 				}
 
-				gesamtPreis += burgerBestellungen[j].berechnePreis();
+				gesamtPreis += burgerBestellungen[i].berechnePreis();
 				System.out.println();
 			}
 		}
-
+		strGesamtpreis = String.format("%.2f", gesamtPreis);
+		
 		System.out.println();
 		System.out.println("Gesamtzubereitungszeit: " + (zubereitungsZeit / 60) + " Minuten und "
 				+ (zubereitungsZeit % 60) + " Sekunden");
-		System.out.println("Gesamtpreis: " + gesamtPreis + " Euro\n");
+		System.out.println("Gesamtpreis: " + strGesamtpreis + " Euro\n");
 	}
 
 	public static String[] bearbeiteBefehle(String befehle) {
@@ -115,6 +125,14 @@ public class Main {
 			return false;
 		}
 	}
+	
+	public static boolean pruefeObBefehl_BEFEHL_OK(String befehl) {
+		if(befehl.equals(BEFEHL_OK)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public static void belegeBurger(Burger burger) {
 		String eingabe = "";
@@ -122,9 +140,10 @@ public class Main {
 		Zutat aktuelleZutat = null;
 		int zutatenNr;
 		int zaehlerZutaten = 1;
-		boolean zutatHinzugefuegt = false;
+		boolean zutatHinzugefuegt = true;
 		boolean istAllgemeinerBefehl = false;
-
+		boolean istBefehlOK = false;
+		
 		System.out.println();
 		System.out.println("Mit was moechtest du deinen Burger belegen? ");
 		System.out.println("Mit '" + BEFEHL_OK + "' kannst du deine Zusammenstellung abschließen.");
@@ -135,13 +154,13 @@ public class Main {
 				System.out.println("Bitte gib die " + zaehlerZutaten + ". Zutat an:");
 				eingabe = StaticScanner.nextString();
 				befehle = bearbeiteBefehle(eingabe);
-
-				istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle);
-
-				if (!befehle[INDEX_HAUPTBEFEHL].equals(BEFEHL_OK) && istAllgemeinerBefehl == false) {
-					zutatenNr = sucheNummerImBefehl(befehle);
+				istBefehlOK = pruefeObBefehl_BEFEHL_OK(befehle[INDEX_HAUPTBEFEHL]);
+				
+				istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle, true);
+				
+				if (!istBefehlOK && istAllgemeinerBefehl == false) {
+					zutatenNr = pruefeObIntInBefehl(befehle);
 					aktuelleZutat = findeZutat(zutatenNr);
-
 					if (aktuelleZutat == null) {
 						System.out.println("Die Zutat haben wir leider nicht. Versuch es doch mit einer anderen!");
 						System.out.println(
@@ -152,23 +171,32 @@ public class Main {
 					}
 				}
 
-			} while (aktuelleZutat == null || aktuelleZutat instanceof Broetchen || istAllgemeinerBefehl == true);
+			} while ((aktuelleZutat == null || aktuelleZutat instanceof Broetchen || istAllgemeinerBefehl == true) && !istBefehlOK);
 
-			if (!befehle[INDEX_HAUPTBEFEHL].equals(BEFEHL_OK)) {
+			if (!istBefehlOK) {
 				zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
 			}
 
 			if (!zutatHinzugefuegt) {
 				System.out.println("Maximale Anzahl an Zutaten erreicht!");
-			} else if (!befehle[INDEX_HAUPTBEFEHL].equals(BEFEHL_OK)) {
+			} else if (!istBefehlOK) {
 				zaehlerZutaten++;
-				System.out.println("> Zutat " + aktuelleZutat.nummer);
-				System.out.println(aktuelleZutat.name + " - " + aktuelleZutat.preis + " Euro");
+				druckeZutatNachBelegen(aktuelleZutat);
+				
 			}
-		} while (!(befehle[INDEX_HAUPTBEFEHL].equals(BEFEHL_OK)));
+		} while (!istBefehlOK && zutatHinzugefuegt);
 
 		System.out.println("Dein Burger '" + burger.getName() + "' wird der Bestellung hinzugefuegt.");
 
+	}
+	
+	public static void druckeZutatNachBelegen(Zutat zutat) {
+		String strZutatPreis = "";
+		
+		strZutatPreis = String.format("%.2f", zutat.preis);
+
+		System.out.println("> Zutat " + zutat.nummer);
+		System.out.println(zutat.name + " - " + strZutatPreis + " Euro");
 	}
 
 	public static Burger erstelleBurger(String name) {
@@ -204,10 +232,10 @@ public class Main {
 			System.out.println("Aus welchem Broetchen soll dein Burger bestehen? ");
 			eingabe = StaticScanner.nextString();
 			befehle = bearbeiteBefehle(eingabe);
-			istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle);
+			istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle, true);
 
 			if (istAllgemeinerBefehl == false) {
-				zutatenNr = sucheNummerImBefehl(befehle);
+				zutatenNr = pruefeObIntInBefehl(befehle);
 				aktuelleZutat = findeZutat(zutatenNr);
 				if (!(aktuelleZutat instanceof Broetchen)) {
 					System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
@@ -246,10 +274,6 @@ public class Main {
 			System.out.println(
 					"Mit '" + BEFEHL_NEUER_BURGER + " Burger <Name>' beginnst du die Kreation deines Burgers.");
 			
-			System.out.println("Mit '" + BEFEHL_BESTELLEN
-					+ "' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
-
-			System.out.println("Mit '" + BEFEHL_ABBRECHEN + "' brichst du deine gesamte Bestellung ab.");
 		}
 		
 		if (imBelegProzess) {
@@ -260,15 +284,23 @@ public class Main {
 		System.out.println(
 				"Mit '" + BEFEHL_MEINE_BURGER + " Burger' gibst du dir alle bereits erstellten Kreationen aus.");
 
+		if(!imBelegProzess) {
+			System.out.println("Mit '" + BEFEHL_BESTELLEN
+					+ "' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
+			System.out.println("Mit '" + BEFEHL_ABBRECHEN + "' brichst du deine gesamte Bestellung ab.");
+		}
+	
 		System.out.println("Mit '" + BEFEHL_ZEIGE_BEFEHLE + "' lässt du dir diese Befehlsliste erneut ausgeben.");
 
 		System.out.println();
 		System.out.println("Bitte deine Eingabe:");
 	}
 
-	public static int sucheNummerImBefehl(String[] befehle) {
+	public static int pruefeObIntInBefehl(String[] befehle) {
 		int nummer = 0;
 
+		//Da wir noch kein "try catch" gelertn haben, wird so der Error abgefangen, falls der String nicht in ein Int
+		// geparst werde kann.
 		for (int i = 0; i < befehle.length; i++) {
 			if ((befehle[i].contains("1") || befehle[i].contains("2") || befehle[i].contains("3")
 					|| befehle[i].contains("4") || befehle[i].contains("5") || befehle[i].contains("6")
@@ -303,7 +335,7 @@ public class Main {
 		return nummer;
 	}
 
-	public static boolean fuehreAllgemeineBefehleAus(String[] befehle) {
+	public static boolean fuehreAllgemeineBefehleAus(String[] befehle, boolean imBelegProzess) {
 		switch (befehle[INDEX_HAUPTBEFEHL]) {
 		case BEFEHL_MENU:
 			druckeMenu();
@@ -312,7 +344,7 @@ public class Main {
 			zeigeAktBestellungen();
 			return true;
 		case BEFEHL_ZEIGE_BEFEHLE:
-			druckeAnleitung(true);
+			druckeAnleitung(imBelegProzess);
 			return true;
 		default:
 			return false;

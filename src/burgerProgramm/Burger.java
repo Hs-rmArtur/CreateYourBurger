@@ -61,30 +61,34 @@ public class Burger {
 		return true;
 	}
 
-	public String checkGeschmack() {
+	public String ermittleGeschmack() {
+		this.geschmack = "";
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] instanceof Sauce) {
-				this.geschmack = ((Sauce) zutaten[i]).geschmack;
+				this.geschmack += ((Sauce) zutaten[i]).geschmack + ", ";
 			}
 		}
-
+		this.geschmack = geschmack.substring(0, geschmack.length() - 2);
+		
 		return this.geschmack;
 	}
 
 	public double berechneHoehe() {
+		this.hoehe = 0.0;
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				this.hoehe += zutaten[i].berechneHoehe();
 			}
 		}
-		return rundeAufZweiNachkomma(this.hoehe);
+		return rundeAufZweiNachkomma(this.hoehe / 10);
 	}
 
 	public double rundeAufZweiNachkomma(double number) {
 		return Math.round(number * 100.0) / 100.0;
 	}
-
+	
 	public double berechnePreis() {
+		this.preis = 0.0;
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
 				this.preis += zutaten[i].preis;
@@ -94,9 +98,10 @@ public class Burger {
 	}
 
 	public int berechneZubereitungszeit() {
+		this.zubereitungsZeit = 0;
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				this.zubereitungsZeit += zutaten[i].berechneZubereitungsZeit();
+				this.zubereitungsZeit += this.zutaten[i].berechneZubereitungsZeit();
 			}
 		}
 		return this.zubereitungsZeit;
@@ -119,7 +124,7 @@ public class Burger {
 	public boolean fuegeZutatHinzu(Zutat zutat) {
 		pruefeTypVonZutat(zutat);
 		pruefeObZutatKlassisch(zutat);
-
+		
 		// Zutat wird hinzugefügt
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] == null) {
@@ -177,23 +182,26 @@ public class Burger {
 
 	public String toString() {
 		String temp;
-
+		String strString = "";
+		
+		strString = String.format("%.2f", this.berechnePreis());
+		
 		temp = this.name + " (" + this.berechneHoehe() + " cm";
 
 		if (this.klassisch) {
 			temp += ", klassisch";
 		}
+		
+		temp+= ", " + ermittleGeschmack();
+		
 		if (this.vegan) {
 			temp += ", vegan";
 		}
 		if (this.vegetarisch && this.vegan == false) {
 			temp += ", vegetarisch";
 		}
-		if (!this.geschmack.equalsIgnoreCase("")) {
-			temp += ", " + this.geschmack;
-		}
 
-		temp += ") - " + this.berechnePreis() + " Euro";
+		temp += ") - " + strString + " Euro";
 
 		return temp;
 	}
