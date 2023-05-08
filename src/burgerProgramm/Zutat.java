@@ -47,6 +47,9 @@ public abstract class Zutat {
 	public String toString() {
 		String klassisch;
 		String typ = "";
+		String strPreis = "";
+
+		strPreis = String.format("%.2f", this.preis);
 
 		if (this.klassisch) {
 			klassisch = ", klassisch";
@@ -60,7 +63,7 @@ public abstract class Zutat {
 			typ = ", vegetarisch";
 		}
 
-		return "Nr: " + this.nummer + ", " + this.name + ", Preis: " + this.preis + klassisch + typ;
+		return "Nr: " + this.nummer + ", " + this.name + ", Preis: " + strPreis +" Euro"+ klassisch + typ;
 	}
 
 }
