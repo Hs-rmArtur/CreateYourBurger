@@ -1,39 +1,43 @@
 package burgerProgramm;
+
 /**
- * Beschreibt ein Salat.
+ * Salat - Unterklasse von Zutat
  * @author Artur Konkel, Michael Karenko
  *
  */
 public class Salat extends Zutat {
-	
+
 	/**
-	 * Konstruktor zur Erstellung eines Salats.
-	 * @param name
-	 * @param nummer
-	 * @param preis
-	 * @param klassisch
+	 * Konstruktor für Zutaten der Kategorie Salat
+	 * Salat ist immer Vegan
+	 * @param name Name der Zutat
+	 * @param nummer (Bestell-)Nummer der Zutat
+	 * @param preis Einzelpreis der Zutat
+	 * @param klassisch Ob die Zutat klassisch (true) ist oder nicht (false)
 	 */
 	public Salat(String name, int nummer, double preis, boolean klassisch) {
 		super(name, nummer, preis, klassisch, VEGAN);
 	}
 	
 	/**
-	 * Berechnung der Hoehe.
+	 * Berechnet die Höhe von Salat. Salat hat keine Höhe.
+	 * @return Gibt die Höhe von Salat zurück
 	 */
-	@Override
 	public double berechneHoehe() {
 		return 0;
 	}
-	
+
 	/**
-	 * Ausgabe, wie der Salat zubereitet werden soll.
+	 * Das formatieren des Strings für die Zubereitung des Salats.
+	 * @return Formatierter String der Zubereitungsschritte
 	 */
 	public String zubereiten() {
 		return this.name + " wird gewaschen und geschleudert.";
 	}
 	
 	/**
-	 * Berechnung der Zubereitungszeit.
+	 * Berechnet die Zubereitungszeit der Zutat. Salate haben keine Zubereitungszeit, weshalb sie 0 ist.
+	 * @return Gibt die Zubereitungszeit zurück
 	 */
 	public int berechneZubereitungsZeit() {
 		return 0;

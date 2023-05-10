@@ -62,11 +62,16 @@ public abstract class Zutat {
 	public abstract int berechneZubereitungsZeit();
 
 	/**
-	 * Soll die Höhe der 
-	 * @return
+	 * Soll die Höhe der Zutat in mm berechnen
+	 * @return Höhe der Zutat nach Zubereitung in mm
 	 */
 	public abstract double berechneHoehe();
 
+	/**
+	 * To-String-Methode für die Zutat, in der die wichtigesten Eigenschaften ausgegeben werden.
+	 * Folgendes wird ausgegeben: Nr: 'Nummer', "Name der Zutat", Preis: 'Preis' Euro, klassisch, vegan/vegetarisch
+	 * @return Formatierter String mit den wichtigsten Eigenschaften der Zutat
+	 */
 	public String toString() {
 		String klassisch;
 		String typ = "";

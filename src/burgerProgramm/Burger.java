@@ -286,6 +286,7 @@ public class Burger {
 	 * Es wird folgendes Ausgegeben: "Name des Burgers" ('Gesamthöhe' cm, klassisch, "Geschmack", vegan/vegetatisch) - 'Gesamtpreis' Euro
 	 * Klassisch und vegan/vegetarisch werden weggelassen falls es nicht zutrifft.
 	 * Geschmack wird hintereinander aufgelistet oder weggelassen, je nachdem, welche Saucen gewählt wurden.
+	 * @return Formatierter String mit den wichtigsten Eigenschaften des Burgers.
 	 */
 	public String toString() {
 		String temp;

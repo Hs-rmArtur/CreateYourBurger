@@ -1,6 +1,8 @@
 package burgerProgramm;
+
+
 /**
- * Beschreibt ein Burgerbratling.
+ * Bratling - Unterklasse von Zutat
  * @author Artur Konkel, Michael Karenko
  *
  */
@@ -9,14 +11,14 @@ public class Bratling extends Zutat {
 	protected int hoehe;
 
 	/**
-	 * Standardkonstruktor zum erstellen eines Bratlings.
-	 * @param name
-	 * @param nummer
-	 * @param preis
-	 * @param klassisch
-	 * @param typ
-	 * @param backzeit
-	 * @param hoehe
+	 * Konstruktor für Zutaten der Kategorie Bratling
+	 * @param name Name der Zutat
+	 * @param nummer (Bestell-)Nummer der Zutat
+	 * @param preis Einzelpreis der Zutat
+	 * @param klassisch Ob die Zutat klassisch (true) ist oder nicht (false)
+	 * @param typ Ob die Zutat vegetarisch / vegan / nichts von beiden ist
+	 * @param backzeit Bratzeit des Bratlings in Sekunden
+	 * @param hoehe Höhe des Bratlings
 	 */
 	public Bratling(String name, int nummer, double preis, boolean klassisch, String typ, int backzeit, int hoehe) {
 		super(name, nummer, preis, klassisch, typ);
