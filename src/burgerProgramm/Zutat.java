@@ -1,5 +1,11 @@
 package burgerProgramm;
 
+/**
+ * Abstrakte Zutaten-Oberklasse.
+ * Legt die Grundlagen für die Zutaten fest.
+ * @author Artur Konkel, Michael Karenko
+ *
+ */
 public abstract class Zutat {
 	public static final String VEGETARISCH = "vegetarisch";
 	public static final String VEGAN = "vegan";
@@ -12,6 +18,14 @@ public abstract class Zutat {
 	protected boolean vegan;
 	protected boolean klassisch;
 
+	/**
+	 * Konstruktor dem alle Eigenschaften mitgegeben werden, um die Zutat zu definieren
+	 * @param name Name der Zutat
+	 * @param nummer (Bestell-)Nummer der Zutat
+	 * @param preis Preis der einzelnen Zutat
+	 * @param klassisch Ob die Zutat klassisch (true) ist oder nicht (false)
+	 * @param typ "vegetarisch" falls vegetarisch | "vegan" falls vegan | 'leer' falls nichts von beiden  ->da nur eins von beiden gleichzeitig möglich
+	 */
 	public Zutat(String name, int nummer, double preis, boolean klassisch, String typ) {
 		this.name = name;
 		this.nummer = nummer;
@@ -26,22 +40,30 @@ public abstract class Zutat {
 
 	}
 
-	public Zutat(String name, int nummer, float preis, String typ) {
-		this(name, nummer, preis, false, typ);
-	}
-
-	public Zutat(String name, int nummer, float preis) {
-		this(name, nummer, preis, VEGETARISCH);
-	}
-
+	/**
+	 * Getter-Methode für die (Bestell-)Nummer
+	 * @return Nummer der Zutat
+	 */
 	public int getNummer() {
 		return this.nummer;
 	}
 	
+	/**
+	 * Abstrakte Methode für die Zubereitung, da jede Zutat zubereitet werden soll.
+	 * @return String in der die Zubereitungsschritte gespeichert werden.
+	 */
 	public abstract String zubereiten();
 
+	/**
+	 * Berechnet die Zubereitungszeit der Zutat, da jede Zutat zubereitet wird.
+	 * @return Zubereitungszeit der Zutat in Sekunden
+	 */
 	public abstract int berechneZubereitungsZeit();
 
+	/**
+	 * Soll die Höhe der 
+	 * @return
+	 */
 	public abstract double berechneHoehe();
 
 	public String toString() {
