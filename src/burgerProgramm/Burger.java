@@ -68,7 +68,10 @@ public class Burger {
 				this.geschmack += ((Sauce) zutaten[i]).geschmack + ", ";
 			}
 		}
-		this.geschmack = geschmack.substring(0, geschmack.length() - 2);
+		
+		if(!(this.geschmack.equals(""))) {
+			this.geschmack = geschmack.substring(0, geschmack.length() - 2);			
+		}
 		
 		return this.geschmack;
 	}
