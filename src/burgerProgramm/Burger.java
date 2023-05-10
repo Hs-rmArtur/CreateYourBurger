@@ -40,6 +40,11 @@ public class Burger {
 		this.geschmack = "";
 	}
 	
+	/**
+	 * Konstruktor, der den Burger mit einem broetchen initialisiert.
+	 * @param name
+	 * @param broetchen, aus dem der Burger bestehen soll.
+	 */
 	public Burger(String name, Broetchen broetchen) {
 		this(name);
 		fuegeZutatHinzu(broetchen);
