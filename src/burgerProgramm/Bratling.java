@@ -1,5 +1,6 @@
 package burgerProgramm;
 
+
 /**
  * Bratling - Unterklasse von Zutat
  * @author Artur Konkel, Michael Karenko
@@ -26,15 +27,24 @@ public class Bratling extends Zutat {
 
 	}
 
+	/**
+	 * Ausgabe, wie das Broetchen zubereitet werden soll.
+	 */
 	public String zubereiten() {
 		return this.name + " von jeder Seite " + ((this.bratzeit / 2) / 60) + " Minuten und "
 				+ ((this.bratzeit / 2) % 60) + " Sekunden grillen.";
 	}
 
+	/**
+	 * Berechnung der Zubereitungszeit.
+	 */
 	public int berechneZubereitungsZeit() {
 		return this.bratzeit;
 	}
-
+	
+	/**
+	 * Berechnung der Hoehe des Bratlings, das sich bei der zubereitung ändert.
+	 */
 	public double berechneHoehe() {
 		double hoeheMinute;
 		double temp = this.hoehe;

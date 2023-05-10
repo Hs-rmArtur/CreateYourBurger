@@ -1,7 +1,12 @@
 package burgerProgramm;
 
 import de.hsrm.mi.prog.util.StaticScanner;
-
+/**
+ * Ein Programm welches dem User ermöglicht eigene Kreationen von Burgern zu erstellen.
+ * Am Ende erhält er die Burger zubereitet und außerdem das Rezept dazu.
+ * @author artur konkel, michael karenko
+ *
+ */
 public class Main {
 	private final static String BEFEHL_OK = "ok";
 	private final static String BEFEHL_MENU = "menu";
@@ -13,7 +18,7 @@ public class Main {
 
 	private final static int INDEX_HAUPTBEFEHL = 0;
 	private final static int INDEX_BURGERNAME = 2;
-	private final static int MAX_ANZ_BURGER = 3;
+	private final static int MAX_ANZ_BURGER = 10;
 	private final static Zutat[] ZUTATEN = generiereZutaten();
 
 	private static Burger[] burgerBestellungen = new Burger[MAX_ANZ_BURGER];
@@ -66,6 +71,9 @@ public class Main {
 				&& !befehle[INDEX_HAUPTBEFEHL].equals(BEFEHL_ABBRECHEN));
 	}
 
+	/**
+	 * Druckt die Bestellungen, dir bereits erstellt wurden.
+	 */
 	public static void zeigeAktBestellungen() {
 		System.out.println("Deine aktuellen Bestellungen: ");
 		for (int i = 0; i < burgerBestellungen.length; i++) {
@@ -78,6 +86,9 @@ public class Main {
 		System.out.println("Bitte deine Eingabe: ");
 	}
 
+	/**
+	 * Berechnet die Zubereitungszeit und den Gesamtpreis aller Bestellungen und druckt diese aus.
+	 */
 	public static void bestellungAbgeben() {
 		int zubereitungsZeit = 0;
 		int tempZeit = 0;
@@ -105,12 +116,21 @@ public class Main {
 				+ (zubereitungsZeit % 60) + " Sekunden");
 		System.out.println("Gesamtpreis: " + strGesamtpreis + " Euro\n");
 	}
-
+	
+	/**
+	 * Bearbeitet die Eingabe des Users zur weiteren Verarbeitung vor.
+	 * @param befehle Zeichenkette der Usereingabe
+	 * @return Array mit einzelnen Worten
+	 */
 	public static String[] bearbeiteBefehle(String befehle) {
 		befehle = befehle.toLowerCase();
 		return befehle.split(" ");
 	}
 
+	/**
+	 * Prueft, ob die maximale Anzahl an erlaubten gleichzeitigen Bestellungen erlaubt ist.
+	 * @return boolean, ob max Anzahl erreicht oder nicht.
+	 */
 	public static boolean pruefeObBestellungenMaxErreicht() {
 		int zaehler = 0;
 		for (int i = 0; i < burgerBestellungen.length; i++) {
@@ -126,6 +146,11 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Überprüfung, ob der eingegebene Befehl vom Typ OK ist.
+	 * @param befehl Befehl, der überprüft werden soll.
+	 * @return boolean
+	 */
 	public static boolean pruefeObBefehl_BEFEHL_OK(String befehl) {
 		if(befehl.equals(BEFEHL_OK)){
 			return true;
@@ -134,6 +159,10 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Hauptlogik zum Abfragen der Zutaten, die auf den Burger gelegt werden sollen.
+	 * @param burger, der belegt werden soll.
+	 */
 	public static void belegeBurger(Burger burger) {
 		String eingabe = "";
 		String befehle[];
@@ -190,6 +219,9 @@ public class Main {
 
 	}
 	
+	/*
+	 * Drucken der Zutatnummer und dessen Preis nach dem Belegen.
+	 */
 	public static void druckeZutatNachBelegen(Zutat zutat) {
 		String strZutatPreis = "";
 		
@@ -200,20 +232,18 @@ public class Main {
 	}
 
 	public static Burger erstelleBurger(String name) {
-		Burger aktuellerBurger = null;
+		Burger burger = null;
 
 		if (!pruefeObBestellungenMaxErreicht()) {
 			for (int i = 0; i < burgerBestellungen.length; i++) {
 				if (burgerBestellungen[i] == null) {
-					aktuellerBurger = new Burger(name);
-					burgerBestellungen[i] = aktuellerBurger;
+					burger = initialisiereBurgerMitBroetchen(name);
+					burgerBestellungen[i] = burger;
 					break;
 				}
 			}
 
-			initialisiereBurgerMitBroetchen(aktuellerBurger);
-
-			return aktuellerBurger;
+			return burger;
 		} else {
 			System.out.println("Du hast deine maximale Anzahl an Burgern erstellt. Zeit diese zu bestellen!");
 			return null;
@@ -221,33 +251,44 @@ public class Main {
 
 	}
 
-	public static void initialisiereBurgerMitBroetchen(Burger burger) {
-		Zutat aktuelleZutat = null;
+	/**
+	 * Erstellung des Burgers mit Userabfrage, mit welchem Broetchen dieser initialisiert werden soll.
+	 * @param name, den der Burger haben soll.
+	 */
+	public static Burger initialisiereBurgerMitBroetchen(String name) {
+		Zutat zutat = null;
 		int zutatenNr = 0;
 		String eingabe = "";
 		String[] befehle;
-		boolean istAllgemeinerBefehl = false;
+		boolean allgemeinerBefehlAusgefuehrt = false;
 
 		do {
 			System.out.println("Aus welchem Broetchen soll dein Burger bestehen? ");
 			eingabe = StaticScanner.nextString();
 			befehle = bearbeiteBefehle(eingabe);
-			istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle, true);
+			allgemeinerBefehlAusgefuehrt = fuehreAllgemeineBefehleAus(befehle, true);
 
-			if (istAllgemeinerBefehl == false) {
+			if (allgemeinerBefehlAusgefuehrt == false) {
 				zutatenNr = pruefeObIntInBefehl(befehle);
-				aktuelleZutat = findeZutat(zutatenNr);
-				if (!(aktuelleZutat instanceof Broetchen)) {
+				zutat = findeZutat(zutatenNr);
+				if (!(zutat instanceof Broetchen)) {
 					System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
 				}
 			}
-		} while (!(aktuelleZutat instanceof Broetchen) || istAllgemeinerBefehl);
+		} while (!(zutat instanceof Broetchen) || allgemeinerBefehlAusgefuehrt);
 
-		burger.fuegeZutatHinzu(aktuelleZutat);
-		System.out.println(aktuelleZutat.toString());
+		System.out.println(zutat.toString());
 		System.out.println("Dein Burger ist bereit belegt zu werden!");
+		
+		return new Burger(name, (Broetchen) zutat);
 	}
-
+	
+		
+	/**
+	 * Ausgabe der Zutat, die anhand der Nummer ermittelt wird.
+	 * @param zutatenNummer der Zutat
+	 * @return gefundene Zutat oder null
+	 */
 	public static Zutat findeZutat(int zutatenNummer) {
 		for (int i = 0; i < ZUTATEN.length; i++) {
 			if (ZUTATEN[i].getNummer() == zutatenNummer) {
@@ -257,6 +298,10 @@ public class Main {
 		return null;
 	}
 
+	
+	/**
+	 * Druckt den Willkommenstext beim starten des Programms
+	 */
 	public static void druckeWillkommensText() {
 		System.out.println("Bock auf deine eigene Burgerkreation?");
 		System.out.println("Dann bist du bei uns genau richtig!");
@@ -265,6 +310,10 @@ public class Main {
 		System.out.println();
 	}
 
+	/**
+	 * druckt die Befehle, die eingegeben werden können.
+	 * @param imBelegProzess fragt ab, ob die Anleitung im Belegprozess aufgerufen wird oder nicht.
+	 */
 	public static void druckeAnleitung(boolean imBelegProzess) {
 		System.out.println("Wie es funktioniert:");
 		System.out.println(
@@ -296,6 +345,12 @@ public class Main {
 		System.out.println("Bitte deine Eingabe:");
 	}
 
+	/**
+	 * Suche eines Integers im eingegeben Befehl. Gleichzeitig wird so vermieden, dass es sich 
+	 * nicht um einen falschen Eingabetyp handelt.
+	 * @param befehle Array mit Befehlen
+	 * @return geparste nummer, die im Befehl gefunden wurde.
+	 */
 	public static int pruefeObIntInBefehl(String[] befehle) {
 		int nummer = 0;
 
@@ -335,6 +390,12 @@ public class Main {
 		return nummer;
 	}
 
+	/**
+	 * Allgemeine Befehle, die beim Belegen, sowie als auch im Startmenü ausgeführt werden können.
+	 * @param befehle
+	 * @param imBelegProzess, prueft ob methode beim Belegen ausgeführt wird oder nicht.
+	 * @return boolean, ob einer der allgemeinen Befehle ausgeführt wurde.
+	 */
 	public static boolean fuehreAllgemeineBefehleAus(String[] befehle, boolean imBelegProzess) {
 		switch (befehle[INDEX_HAUPTBEFEHL]) {
 		case BEFEHL_MENU:
@@ -351,6 +412,9 @@ public class Main {
 		}
 	}
 
+	/**
+	 * druckt das Menü, welches die möglichen Zutaten enthält.
+	 */
 	public static void druckeMenu() {
 		/*
 		 * Wurde so implementiert, um Text zwischen den Zutatenkategorien zu
@@ -405,6 +469,10 @@ public class Main {
 
 	}
 
+	/**
+	 * Erstellung eines Arrays mit den möglichen Zutaten.
+	 * @return Array  mit Zutaten.
+	 */
 	public static Zutat[] generiereZutaten() {
 		return new Zutat[] { new Broetchen("Hamburger", 10, 0.85, true, Zutat.VEGETARISCH, 90, 27),
 				new Broetchen("Hamburger Sesam", 11, 0.95, true, Zutat.VEGETARISCH, 90, 28),

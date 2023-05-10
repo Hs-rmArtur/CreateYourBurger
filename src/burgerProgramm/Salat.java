@@ -2,7 +2,7 @@ package burgerProgramm;
 
 /**
  * Salat - Unterklasse von Zutat
- * @author mkare
+ * @author Artur Konkel, Michael Karenko
  *
  */
 public class Salat extends Zutat {

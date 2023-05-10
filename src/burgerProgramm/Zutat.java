@@ -35,6 +35,7 @@ public abstract class Zutat {
 		if (typ.equalsIgnoreCase(VEGETARISCH)) {
 			this.vegetarisch = true;
 		} else if (typ.equalsIgnoreCase(VEGAN)) {
+			this.vegetarisch = true;
 			this.vegan = true;
 		}
 

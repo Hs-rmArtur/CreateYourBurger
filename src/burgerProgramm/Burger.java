@@ -39,6 +39,17 @@ public class Burger {
 		this.zubereitungsZeit = 0;
 		this.geschmack = "";
 	}
+	
+	/**
+	 * Konstruktor, der den Burger mit einem broetchen initialisiert.
+	 * @param name
+	 * @param broetchen, aus dem der Burger bestehen soll.
+	 */
+	public Burger(String name, Broetchen broetchen) {
+		this(name);
+		fuegeZutatHinzu(broetchen);
+		
+	}
 
 	/**
 	 * Geht das Zutaten-Array durch unnd prüft, ob die Zutaten vegan sind. Sobald eine Zutat nicht vegan ist, ist der Burger nicht vegan.
@@ -181,7 +192,10 @@ public class Burger {
 	private void pruefeTypVonZutat(Zutat zutat) {
 		if (!zutat.vegan) {
 			this.vegan = false;
-		} else if (!zutat.vegetarisch) {
+		} 
+		
+		if (!zutat.vegetarisch) {
+			this.vegan = false;
 			this.vegetarisch = false;
 		}
 	}
@@ -293,7 +307,7 @@ public class Burger {
 		if (this.vegan) {
 			temp += ", vegan";
 		}
-		if (this.vegetarisch && this.vegan == false) {
+		if (this.vegetarisch) {
 			temp += ", vegetarisch";
 		}
 
