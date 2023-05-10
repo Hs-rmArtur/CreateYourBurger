@@ -219,8 +219,9 @@ public class Main {
 
 	}
 	
-	/*
+	/**
 	 * Drucken der Zutatnummer und dessen Preis nach dem Belegen.
+	 * @param zutat Die Zutat die hunzugefügt wird
 	 */
 	public static void druckeZutatNachBelegen(Zutat zutat) {
 		String strZutatPreis = "";
@@ -231,6 +232,11 @@ public class Main {
 		System.out.println(zutat.name + " - " + strZutatPreis + " Euro");
 	}
 
+	/**
+	 * Erstellt einen neuen leeren Burger und prüft ob die maximale Anzahl erreicht ist. Initialisiert den Burger mit der entsprechenden Methode
+	 * @param name Name des zu erstellenden Burgers
+	 * @return Der neu erstellte Burger wird zurückgegeben
+	 */
 	public static Burger erstelleBurger(String name) {
 		Burger burger = null;
 
@@ -392,7 +398,7 @@ public class Main {
 
 	/**
 	 * Allgemeine Befehle, die beim Belegen, sowie als auch im Startmenü ausgeführt werden können.
-	 * @param befehle
+	 * @param befehle Der geteilte String der Eingabe
 	 * @param imBelegProzess, prueft ob methode beim Belegen ausgeführt wird oder nicht.
 	 * @return boolean, ob einer der allgemeinen Befehle ausgeführt wurde.
 	 */
