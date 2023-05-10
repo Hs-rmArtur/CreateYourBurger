@@ -26,6 +26,12 @@ public class Burger {
 		this.zubereitungsZeit = 0;
 		this.geschmack = "";
 	}
+	
+	public Burger(String name, Broetchen broetchen) {
+		this(name);
+		fuegeZutatHinzu(broetchen);
+		
+	}
 
 	public boolean pruefObVegan() {
 		for (int i = 0; i < zutaten.length; i++) {
