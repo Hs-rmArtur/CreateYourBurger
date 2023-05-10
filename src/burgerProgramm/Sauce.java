@@ -1,5 +1,10 @@
 package burgerProgramm;
 
+/**
+ * Beschreibt eine Sauce.
+ * @author Artur Konkel, Michael Karenko
+ *
+ */
 public class Sauce extends Zutat {
 	public static final String SUESS = "suess";
 	public static final String SCHARF = "scharf";
@@ -17,15 +22,26 @@ public class Sauce extends Zutat {
 	public Sauce(String name, int nummer, double preis, int menge, String geschmack) {
 		this(name, nummer, preis, false, "", menge, geschmack);
 	}
-
+	
+	
+	/**
+	 * Ausgabe, wie die Sauce zubereitet werden soll.
+	 */
 	public String zubereiten() {
 		return this.name + " wird geschuettelt.";
 	}
 	
+	/**
+	 * Berechnung der Zubereitungszeit.
+	 */
 	public int berechneZubereitungsZeit() {
 		return 0;
 	}
 	
+	
+	/**
+	 * Berechnung der Hoehe der Sauce auf dem Burger.
+	 */
 	public double berechneHoehe() {
 		return 0;
 	}
