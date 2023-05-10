@@ -232,20 +232,18 @@ public class Main {
 	}
 
 	public static Burger erstelleBurger(String name) {
-		Burger aktuellerBurger = null;
+		Burger burger = null;
 
 		if (!pruefeObBestellungenMaxErreicht()) {
 			for (int i = 0; i < burgerBestellungen.length; i++) {
 				if (burgerBestellungen[i] == null) {
-					aktuellerBurger = new Burger(name);
-					burgerBestellungen[i] = aktuellerBurger;
+					burger = initialisiereBurgerMitBroetchen(name);
+					burgerBestellungen[i] = burger;
 					break;
 				}
 			}
 
-			initialisiereBurgerMitBroetchen(aktuellerBurger);
-
-			return aktuellerBurger;
+			return burger;
 		} else {
 			System.out.println("Du hast deine maximale Anzahl an Burgern erstellt. Zeit diese zu bestellen!");
 			return null;
@@ -254,34 +252,35 @@ public class Main {
 	}
 
 	/**
-	 * Wurde ein Burger erstellt, wird dieser mit einem Brötchen initialisiert.
-	 * @param burger, der erstellt werden soll.
+	 * Erstellung des Burgers mit Userabfrage, mit welchem Broetchen dieser initialisiert werden soll.
+	 * @param name, den der Burger haben soll.
 	 */
-	public static void initialisiereBurgerMitBroetchen(Burger burger) {
-		Zutat aktuelleZutat = null;
+	public static Burger initialisiereBurgerMitBroetchen(String name) {
+		Zutat zutat = null;
 		int zutatenNr = 0;
 		String eingabe = "";
 		String[] befehle;
-		boolean istAllgemeinerBefehl = false;
+		boolean allgemeinerBefehlAusgefuehrt = false;
 
 		do {
 			System.out.println("Aus welchem Broetchen soll dein Burger bestehen? ");
 			eingabe = StaticScanner.nextString();
 			befehle = bearbeiteBefehle(eingabe);
-			istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle, true);
+			allgemeinerBefehlAusgefuehrt = fuehreAllgemeineBefehleAus(befehle, true);
 
-			if (istAllgemeinerBefehl == false) {
+			if (allgemeinerBefehlAusgefuehrt == false) {
 				zutatenNr = pruefeObIntInBefehl(befehle);
-				aktuelleZutat = findeZutat(zutatenNr);
-				if (!(aktuelleZutat instanceof Broetchen)) {
+				zutat = findeZutat(zutatenNr);
+				if (!(zutat instanceof Broetchen)) {
 					System.out.println("Du musst zunächst ein Broetchen waehlen, um deinen Burger belegen zu koennen.");
 				}
 			}
-		} while (!(aktuelleZutat instanceof Broetchen) || istAllgemeinerBefehl);
+		} while (!(zutat instanceof Broetchen) || allgemeinerBefehlAusgefuehrt);
 
-		burger.fuegeZutatHinzu(aktuelleZutat);
-		System.out.println(aktuelleZutat.toString());
+		System.out.println(zutat.toString());
 		System.out.println("Dein Burger ist bereit belegt zu werden!");
+		
+		return new Burger(name, (Broetchen) zutat);
 	}
 	
 		
