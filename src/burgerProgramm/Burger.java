@@ -192,7 +192,10 @@ public class Burger {
 	private void pruefeTypVonZutat(Zutat zutat) {
 		if (!zutat.vegan) {
 			this.vegan = false;
-		} else if (!zutat.vegetarisch) {
+		} 
+		
+		if (!zutat.vegetarisch) {
+			this.vegan = false;
 			this.vegetarisch = false;
 		}
 	}
@@ -303,7 +306,7 @@ public class Burger {
 		if (this.vegan) {
 			temp += ", vegan";
 		}
-		if (this.vegetarisch && this.vegan == false) {
+		if (this.vegetarisch) {
 			temp += ", vegetarisch";
 		}
 
