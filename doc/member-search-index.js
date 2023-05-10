@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"burgerProgramm","c":"Gemuese","l":"berechneHoehe()"},{"p":"burgerProgramm","c":"Gemuese","l":"berechneZubereitungsZeit()"},{"p":"burgerProgramm","c":"Gemuese","l":"Gemuese(String, int, double, boolean, int, int)","u":"%3Cinit%3E(java.lang.String,int,double,boolean,int,int)"},{"p":"burgerProgramm","c":"Gemuese","l":"zubereiten()"}];updateSearchResults();
