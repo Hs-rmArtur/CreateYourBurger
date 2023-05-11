@@ -19,7 +19,7 @@ public class Main {
 	private final static int INDEX_HAUPTBEFEHL = 0;
 	private final static int INDEX_BURGERNAME = 2;
 	private final static int MAX_ANZ_BURGER = 10;
-	private final static Zutat[] ZUTATEN = generiereZutaten();
+	private final static Zutat[][] ZUTATEN = generiereZutaten();
 
 	private static Burger[] burgerBestellungen = new Burger[MAX_ANZ_BURGER];
 
@@ -296,14 +296,30 @@ public class Main {
 	 * @return gefundene Zutat oder null
 	 */
 	public static Zutat findeZutat(int zutatenNummer) {
-		for (int i = 0; i < ZUTATEN.length; i++) {
-			if (ZUTATEN[i].getNummer() == zutatenNummer) {
-				return ZUTATEN[i];
+		int[] index = splitZahl(zutatenNummer);
+		
+		if(index != null) {
+			if(index[0] >= 0 && index[0] < ZUTATEN.length && index[1] < ZUTATEN[index[0]].length) {
+				return ZUTATEN[index[0]][index[1]];
 			}
 		}
-		return null;
+			return  null;
 	}
-
+	
+	public static int[] splitZahl(int zutatenNummer) {
+		int[] split = new int[2];
+		
+		if(zutatenNummer < 100) {
+			 for(int i = split.length - 1; i >= 0; i--) {
+				 split[i] = zutatenNummer % 10;
+				 
+				 zutatenNummer = zutatenNummer / 10;
+			 }
+		 split[0] -= 1;
+		return split;
+		}
+			return null;
+	}
 	
 	/**
 	 * Druckt den Willkommenstext beim starten des Programms
@@ -430,8 +446,8 @@ public class Main {
 		 */
 
 		System.out.println("Broetchen:");
-		for (int i = 0; i < ZUTATEN.length; i++) {
-			if (ZUTATEN[i] instanceof Broetchen) {
+		for (int i = 0; i < ZUTATEN[0].length; i++) {
+			if (ZUTATEN[0][i] instanceof Broetchen) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
@@ -439,8 +455,8 @@ public class Main {
 
 		System.out.println();
 		System.out.println("Bratlinge:");
-		for (int i = 0; i < ZUTATEN.length; i++) {
-			if (ZUTATEN[i] instanceof Bratling) {
+		for (int i = 0; i < ZUTATEN[1].length; i++) {
+			if (ZUTATEN[1][i] instanceof Bratling) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
@@ -448,8 +464,8 @@ public class Main {
 
 		System.out.println();
 		System.out.println("Salate:");
-		for (int i = 0; i < ZUTATEN.length; i++) {
-			if (ZUTATEN[i] instanceof Salat) {
+		for (int i = 0; i < ZUTATEN[2].length; i++) {
+			if (ZUTATEN[2][i] instanceof Salat) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
@@ -457,8 +473,8 @@ public class Main {
 
 		System.out.println();
 		System.out.println("Gemuese:");
-		for (int i = 0; i < ZUTATEN.length; i++) {
-			if (ZUTATEN[i] instanceof Gemuese) {
+		for (int i = 0; i < ZUTATEN[3].length; i++) {
+			if (ZUTATEN[3][i] instanceof Gemuese) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
@@ -466,8 +482,8 @@ public class Main {
 
 		System.out.println();
 		System.out.println("Saucen:");
-		for (int i = 0; i < ZUTATEN.length; i++) {
-			if (ZUTATEN[i] instanceof Sauce) {
+		for (int i = 0; i < ZUTATEN[4].length; i++) {
+			if (ZUTATEN[4][i] instanceof Sauce) {
 				System.out.println(ZUTATEN[i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
@@ -479,31 +495,31 @@ public class Main {
 	 * Erstellung eines Arrays mit den möglichen Zutaten.
 	 * @return Array  mit Zutaten.
 	 */
-	public static Zutat[] generiereZutaten() {
-		return new Zutat[] { new Broetchen("Hamburger", 10, 0.85, true, Zutat.VEGETARISCH, 90, 27),
+	public static Zutat[][] generiereZutaten() {
+		return new Zutat[][] { {
+				new Broetchen("Hamburger", 10, 0.85, true, Zutat.VEGETARISCH, 90, 27),
 				new Broetchen("Hamburger Sesam", 11, 0.95, true, Zutat.VEGETARISCH, 90, 28),
 				new Broetchen("Vegan-Broetchen", 12, 0.55, false, Zutat.VEGAN, 240, 34),
 				new Broetchen("Ciabatta", 13, 0.45, false, Zutat.VEGETARISCH, 330, 41),
-
+				}, {
 				new Bratling("Rindfleisch (Original)", 20, 1.85, true, Zutat.FLEISCHHALTIG, 270, 25),
 				new Bratling("Haehnchenfleisch gegrillt", 21, 1.15, false, Zutat.FLEISCHHALTIG, 180, 11),
 				new Bratling("Falafel-Bratling", 22, 1.45, false, Zutat.VEGAN, 210, 21),
 				new Bratling("Gemuese-Bratling", 23, 1.75, false, Zutat.VEGETARISCH, 240, 25),
-
+				}, {
 				new Salat("Eisbergsalat", 30, 0.18, true),
 				new Salat("Rucolasalat", 31, 0.25, false),
-
+				}, {
 				new Gemuese("Tomate", 40, 0.25, true, 3, 3),
 				new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
 				new Gemuese("Rote Zwiebelringe", 42, 0.08, false, 5, 2),
 				new Gemuese("Jalapeno-Ringe", 43, 0.08, false, 5, 2),
-
+				}, {
 				new Sauce("Ketchup", 50, 0.10, true, Zutat.VEGAN, 5, Sauce.NORMAL),
 				new Sauce("Sandwich-Sauce", 51, 0.15, true, Zutat.VEGETARISCH, 10, Sauce.NORMAL),
 				new Sauce("Chili-Sauce", 52, 0.25, false, Zutat.VEGAN, 8, Sauce.SCHARF),
 				new Sauce("Honig-Senf-Sauce", 53, 0.18, false, Zutat.VEGETARISCH, 8, Sauce.SUESS)
-
-		};
+				}};
 
 	}
 
