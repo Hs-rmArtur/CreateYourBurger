@@ -448,7 +448,7 @@ public class Main {
 		System.out.println("Broetchen:");
 		for (int i = 0; i < ZUTATEN[0].length; i++) {
 			if (ZUTATEN[0][i] instanceof Broetchen) {
-				System.out.println(ZUTATEN[i].toString());
+				System.out.println(ZUTATEN[0][i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
@@ -457,7 +457,7 @@ public class Main {
 		System.out.println("Bratlinge:");
 		for (int i = 0; i < ZUTATEN[1].length; i++) {
 			if (ZUTATEN[1][i] instanceof Bratling) {
-				System.out.println(ZUTATEN[i].toString());
+				System.out.println(ZUTATEN[1][i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
@@ -466,7 +466,7 @@ public class Main {
 		System.out.println("Salate:");
 		for (int i = 0; i < ZUTATEN[2].length; i++) {
 			if (ZUTATEN[2][i] instanceof Salat) {
-				System.out.println(ZUTATEN[i].toString());
+				System.out.println(ZUTATEN[2][i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
@@ -475,7 +475,7 @@ public class Main {
 		System.out.println("Gemuese:");
 		for (int i = 0; i < ZUTATEN[3].length; i++) {
 			if (ZUTATEN[3][i] instanceof Gemuese) {
-				System.out.println(ZUTATEN[i].toString());
+				System.out.println(ZUTATEN[3][i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
@@ -484,7 +484,7 @@ public class Main {
 		System.out.println("Saucen:");
 		for (int i = 0; i < ZUTATEN[4].length; i++) {
 			if (ZUTATEN[4][i] instanceof Sauce) {
-				System.out.println(ZUTATEN[i].toString());
+				System.out.println(ZUTATEN[4][i].toString());
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
