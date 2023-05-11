@@ -6,3 +6,7 @@ ToDo:
 + in einen Burger zurückwechseln, nachdem er abgeschlossen wurde, um änderungen vorzunehmen
 + Zutaten entfernen können
 + erstellte Bürger löschen können
+
+if(mind == blown){
+  return null;
+ }
