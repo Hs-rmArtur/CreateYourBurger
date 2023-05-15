@@ -10,8 +10,8 @@ public class Sauce extends Zutat {
 	public static final String SCHARF = "scharf";
 	public static final String NORMAL = "normal";
 	
-	protected int menge;
-	protected String geschmack;
+	private int menge;
+	private String geschmack;
 
 	/**
 	 * Konstruktor für Zutaten der Kategorie Sauce
@@ -27,6 +27,14 @@ public class Sauce extends Zutat {
 		super(name, nummer, preis, klassisch, typ);
 		this.menge = menge;
 		this.geschmack = geschmack;
+	}
+	
+	public int getMenge() {
+		return this.menge;
+	}
+	
+	public String getGeschmack() {
+		return this.geschmack;
 	}
 
 	/**

@@ -6,8 +6,8 @@ package burgerProgramm;
  *
  */
 public class Gemuese extends Zutat {
-	protected int scheibenAnzahl;
-	protected int scheibenDicke;
+	private int scheibenAnzahl;
+	private int scheibenDicke;
 
 	/**
 	 * Konstruktor von Zutaten der Kategorie Gemuese

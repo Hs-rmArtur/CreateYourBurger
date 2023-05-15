@@ -13,13 +13,6 @@ public class Burger {
 
 	private String name;
 	private Zutat[] zutaten;
-	private boolean vegan;
-	private boolean vegetarisch;
-	private boolean klassisch;
-	private String geschmack;
-	private int zubereitungsZeit;
-	private double hoehe;
-	private double preis;
 
 	/**
 	 * Konstruktor des Burgers.
@@ -31,13 +24,6 @@ public class Burger {
 	public Burger(String name) {
 		this.zutaten = new Zutat[MAX_ZUTATEN];
 		this.name = name;
-		this.vegan = true;
-		this.vegetarisch = true;
-		this.klassisch = true;
-		this.hoehe = 0.0;
-		this.preis = 0.0;
-		this.zubereitungsZeit = 0;
-		this.geschmack = "";
 	}
 	
 	/**
@@ -59,7 +45,7 @@ public class Burger {
 	public boolean pruefObVegan() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				if (!zutaten[i].vegan) {
+				if (!zutaten[i].getVegan()) {
 					return false;
 				}
 			}
@@ -76,7 +62,7 @@ public class Burger {
 	public boolean pruefObVegetarisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				if (!zutaten[i].vegetarisch) {
+				if (!zutaten[i].getVegetarisch()) {
 					return false;
 				}
 			}
@@ -93,7 +79,7 @@ public class Burger {
 	public boolean pruefObKlassisch() {
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				if (!zutaten[i].klassisch) {
+				if (!zutaten[i].getKlassisch()) {
 					return false;
 				}
 			}
@@ -107,20 +93,20 @@ public class Burger {
 	 * @return gibt die Kombination der Geschmäcke als String aus.
 	 */
 	public String ermittleGeschmack() {
-		this.geschmack = "";
+		String geschmack = "";
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] instanceof Sauce) {
-				if(!(this.geschmack.contains(((Sauce)zutaten[i]).geschmack))) {
-					this.geschmack += ((Sauce) zutaten[i]).geschmack + ", ";					
+				if(!(geschmack.contains(((Sauce)zutaten[i]).getGeschmack()))) {
+					geschmack += ((Sauce) zutaten[i]).getGeschmack() + ", ";					
 				}
 			}
 		}
 		
-		if(!(this.geschmack.equals(""))) {
-			this.geschmack = geschmack.substring(0, geschmack.length() - 2);			
+		if(!(geschmack.equals(""))) {
+			geschmack = geschmack.substring(0, geschmack.length() - 2);			
 		}
 		
-		return this.geschmack;
+		return geschmack;
 	}
 
 	/**
@@ -128,13 +114,13 @@ public class Burger {
 	 * @return Gibt die Gesamthöhe in cm (auf zwei Nachkommastellen gerundet) wieder.
 	 */
 	public double berechneHoehe() {
-		this.hoehe = 0.0;
+		double hoehe = 0.0;
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				this.hoehe += zutaten[i].berechneHoehe();
+				hoehe += zutaten[i].berechneHoehe();
 			}
 		}
-		return rundeAufZweiNachkomma(this.hoehe / 10);
+		return rundeAufZweiNachkomma(hoehe / 10);
 	}
 
 	/**
@@ -151,13 +137,13 @@ public class Burger {
 	 * @return Gibt den Gesamtpreis mit zwei Nachkommastellen in Euro zurück.
 	 */
 	public double berechnePreis() {
-		this.preis = 0.0;
+		double preis = 0.0;
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				this.preis += zutaten[i].preis;
+				preis += zutaten[i].getPreis();
 			}
 		}
-		return rundeAufZweiNachkomma(this.preis);
+		return rundeAufZweiNachkomma(preis);
 	}
 
 	/**
@@ -165,51 +151,21 @@ public class Burger {
 	 * @return Gibt die längste Zubereitungszeit der einzelnen Burger in Sekunden wieder.
 	 */
 	public int berechneZubereitungszeit() {
-		this.zubereitungsZeit = 0;
+		int zubereitungsZeit = 0;
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] != null) {
-				this.zubereitungsZeit += this.zutaten[i].berechneZubereitungsZeit();
+				zubereitungsZeit += this.zutaten[i].berechneZubereitungsZeit();
 			}
 		}
-		return this.zubereitungsZeit;
+		return zubereitungsZeit;
 	}
 
-	/**
-	 * Prüft, ob die Zutat klassisch ist. Falls nciht, ist der Burger nicht mehr klassisch.
-	 * @param zutat Die Zutat, die dem Burger hinzugefügt werden soll.
-	 */
-	private void pruefeObZutatKlassisch(Zutat zutat) {
-		if (!zutat.klassisch) {
-			this.klassisch = false;
-		}
-	}
-
-	/**
-	 * Prüft, ob die Zutat vegan ist. Falls nicht wird geprüft ob sie vegetarisch ist. 
-	 * Setzt entsprechend den Burger als Vegan, Vegetarisch oder nichts.
-	 * @param zutat Die Zutat, die dem Burger hinzugefügt werden soll.
-	 */
-	private void pruefeTypVonZutat(Zutat zutat) {
-		if (!zutat.vegan) {
-			this.vegan = false;
-		} 
-		
-		if (!zutat.vegetarisch) {
-			this.vegan = false;
-			this.vegetarisch = false;
-		}
-	}
-	
 	/**
 	 * Prüft ob die Zutat Vegan/Vegetarisch und ob sie Klassisch ist und fügt sie an die nächste freie Stelle im Burger-Zutaten-Array zu.
 	 * @param zutat Die Zutat, die dem Burger hinzugefügt werden soll.
 	 * @return Gibt zurück, ob die Zutat hinzugefügt wurde oder nicht (Voll).
 	 */
 	public boolean fuegeZutatHinzu(Zutat zutat) {
-		pruefeTypVonZutat(zutat);
-		pruefeObZutatKlassisch(zutat);
-		
-		// Zutat wird hinzugefügt
 		for (int i = 0; i < zutaten.length; i++) {
 			if (zutaten[i] == null) {
 				zutaten[i] = zutat;
@@ -259,7 +215,7 @@ public class Burger {
 		System.out.print("Zutaten: ");
 		for (int i = 0; i < zutaten.length - 1; i++) {
 			if (zutaten[i] != null) {
-				System.out.print(zutaten[i].name + ", ");
+				System.out.print(zutaten[i].getName() + ", ");
 			}
 		}
 		System.out.println();
@@ -296,18 +252,17 @@ public class Burger {
 		
 		temp = this.name + " (" + this.berechneHoehe() + " cm";
 
-		if (this.klassisch) {
+		if (pruefObKlassisch()) {
 			temp += ", klassisch";
 		}
 		
 		if(ermittleGeschmack().length() > 0) {
-			temp+= ", " + this.geschmack;
+			temp+= ", " + ermittleGeschmack();
 		}
 		
-		if (this.vegan) {
+		if (pruefObVegan()) {
 			temp += ", vegan";
-		}
-		if (this.vegetarisch) {
+		} else if (pruefObVegetarisch()) {
 			temp += ", vegetarisch";
 		}
 
