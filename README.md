@@ -4,11 +4,11 @@
 
 ToDo:
 -dynamische Werte nicht als Attribute X
--Backzeit in Minuten und Sekunden
--Höhenberechnung die Sekunden mit einbeziehen
--Attribute bei konkrete Zutaten -> private
--druckeZutatnachBeleg nicht auf Attribute direkt zugreifen -> getter
--Prüfen ob String = Int -> String.matches
+-Backzeit in Minuten und Sekunden X
+-Höhenberechnung die Sekunden mit einbeziehen X
+-Attribute bei konkrete Zutaten -> private X
+-druckeZutatnachBeleg nicht auf Attribute direkt zugreifen -> getter X
+-Prüfen ob String = Int -> String.matches X
 
 if(mind == blown){
   return null;
