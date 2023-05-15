@@ -25,17 +25,6 @@ public class Burger {
 		this.zutaten = new Zutat[MAX_ZUTATEN];
 		this.name = name;
 	}
-	
-	/**
-	 * Konstruktor, der den Burger mit einem broetchen initialisiert.
-	 * @param name
-	 * @param broetchen, aus dem der Burger bestehen soll.
-	 */
-	public Burger(String name, Broetchen broetchen) {
-		this(name);
-		fuegeZutatHinzu(broetchen);
-		
-	}
 
 	/**
 	 * Geht das Zutaten-Array durch unnd prüft, ob die Zutaten vegan sind. Sobald eine Zutat nicht vegan ist, ist der Burger nicht vegan.
@@ -158,6 +147,16 @@ public class Burger {
 			}
 		}
 		return zubereitungsZeit;
+	}
+	
+	public int berechneAnzahlZutaten() {
+		int counter = 0;
+		for(int i = 0; i < zutaten.length; i++) {
+			if(zutaten[i] != null) {
+				counter++;
+			}
+		}
+		return counter;
 	}
 
 	/**
