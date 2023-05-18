@@ -58,9 +58,9 @@ public class Broetchen extends Zutat {
 			temp += hoeheProEinheit;
 		}
 		
-			for(int i = 0; i < (backzeit % 60); i++) {
-				hoeheProEinheit = ((temp / 100) * 2.5) / 60;
-				temp += hoeheProEinheit;
+		for(int i = 0; i < (backzeit % 60); i++) {
+			hoeheProEinheit = ((temp / 100) * 2.5) / 60;
+			temp += hoeheProEinheit;
 		}
 		
 		return (Math.round(temp*10)/10.0);
