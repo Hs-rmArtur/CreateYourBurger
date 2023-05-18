@@ -49,6 +49,26 @@ public abstract class Zutat {
 		return this.nummer;
 	}
 	
+	public double getPreis() {
+		return this.preis;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public boolean getVegetarisch() {
+		return this.vegetarisch;
+	}
+	
+	public boolean getVegan() {
+		return this.vegan;
+	}
+	
+	public boolean getKlassisch() {
+		return this.klassisch;
+	}
+	
 	/**
 	 * Abstrakte Methode für die Zubereitung, da jede Zutat zubereitet werden soll.
 	 * @return String in der die Zubereitungsschritte gespeichert werden.

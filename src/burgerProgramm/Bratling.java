@@ -7,8 +7,8 @@ package burgerProgramm;
  *
  */
 public class Bratling extends Zutat {
-	protected int bratzeit;
-	protected int hoehe;
+	private int bratzeit;
+	private int hoehe;
 
 	/**
 	 * Konstruktor für Zutaten der Kategorie Bratling
@@ -31,8 +31,12 @@ public class Bratling extends Zutat {
 	 * Ausgabe, wie das Broetchen zubereitet werden soll.
 	 */
 	public String zubereiten() {
-		return this.name + " von jeder Seite " + ((this.bratzeit / 2) / 60) + " Minuten und "
-				+ ((this.bratzeit / 2) % 60) + " Sekunden grillen.";
+		if(bratzeit % 60 == 0) {
+			return this.name + " von jeder Seite " + ((this.bratzeit / 2) / 60) + " Minuten und "
+					+ ((this.bratzeit / 2) % 60) + " Sekunden grillen.";			
+		} else {
+			return this.name + " von jeder Seite " + ((this.bratzeit / 2) / 60) + " Minuten grillen.";	
+		}
 	}
 
 	/**
@@ -46,13 +50,19 @@ public class Bratling extends Zutat {
 	 * Berechnung der Hoehe des Bratlings, das sich bei der zubereitung ändert.
 	 */
 	public double berechneHoehe() {
-		double hoeheMinute;
+		double hoeheProEinheit;
 		double temp = this.hoehe;
 
 		for (int i = 0; i < (bratzeit / 60); i++) {
-			hoeheMinute = (temp / 100) * 3.5;
-			temp -= hoeheMinute;
+			hoeheProEinheit = (temp / 100) * 3.5;
+			temp -= hoeheProEinheit;
 		}
+		
+			for(int i = 0; i < (bratzeit % 60); i++) {
+				hoeheProEinheit = ((temp / 100) * 3.5) / 60;
+				temp -= hoeheProEinheit;
+			}
+		
 		return (Math.round(temp * 10) / 10.0);
 	}
 

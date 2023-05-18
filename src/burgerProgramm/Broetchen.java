@@ -6,8 +6,8 @@ package burgerProgramm;
  *
  */
 public class Broetchen extends Zutat {
-	protected int backzeit; //in Sekunden
-	protected int hoehe;
+	private int backzeit; //in Sekunden
+	private int hoehe;
 
 	/**
 	 * Standard Konstruktor zur Erstellung eines Broetchens.
@@ -30,7 +30,11 @@ public class Broetchen extends Zutat {
 	 * Ausgabe, wie das Broetchen zubereitet werden soll.
 	 */
 	public String zubereiten() {
-		return this.name + " " + (backzeit / 60.0) + " Minuten rösten und aufschneiden.";
+		if(backzeit % 60 == 0) {
+			return this.name + " " + (backzeit / 60) + " Minuten und " + (backzeit % 60) + " Sekunden rösten und aufschneiden.";			
+		} else {
+			return this.name + " " + (backzeit / 60) + " Minuten rösten und aufschneiden.";
+		}
 	}
 	
 	
@@ -46,13 +50,19 @@ public class Broetchen extends Zutat {
 	 * Berechnung der Hoehe des Brötchens, welches sich beim Backen ändert.
 	 */
 	public double berechneHoehe() { 
-		double hoeheMinute;
+		double hoeheProEinheit;
 		double temp = this.hoehe;
 
 		for (int i = 0; i < (backzeit / 60); i++) {
-			hoeheMinute = (temp / 100) * 2.5;
-			temp += hoeheMinute;
+			hoeheProEinheit = (temp / 100) * 2.5;
+			temp += hoeheProEinheit;
 		}
+		
+			for(int i = 0; i < (backzeit % 60); i++) {
+				hoeheProEinheit = ((temp / 100) * 2.5) / 60;
+				temp += hoeheProEinheit;
+		}
+		
 		return (Math.round(temp*10)/10.0);
 	}
 

@@ -226,10 +226,10 @@ public class Main {
 	public static void druckeZutatNachBelegen(Zutat zutat) {
 		String strZutatPreis = "";
 		
-		strZutatPreis = String.format("%.2f", zutat.preis);
+		strZutatPreis = String.format("%.2f", zutat.getPreis());
 
-		System.out.println("> Zutat " + zutat.nummer);
-		System.out.println(zutat.name + " - " + strZutatPreis + " Euro");
+		System.out.println("> Zutat " + zutat.getNummer());
+		System.out.println(zutat.getName() + " - " + strZutatPreis + " Euro");
 	}
 
 	/**
@@ -360,36 +360,9 @@ public class Main {
 	public static int pruefeObIntInBefehl(String[] befehle) {
 		int nummer = 0;
 
-		//Da wir noch kein "try catch" gelertn haben, wird so der Error abgefangen, falls der String nicht in ein Int
-		// geparst werde kann.
 		for (int i = 0; i < befehle.length; i++) {
-			if ((befehle[i].contains("1") || befehle[i].contains("2") || befehle[i].contains("3")
-					|| befehle[i].contains("4") || befehle[i].contains("5") || befehle[i].contains("6")
-					|| befehle[i].contains("7") || befehle[i].contains("8") || befehle[i].contains("9")
-					|| befehle[i].contains("0")) 
-					&& (!(befehle[i].contains("a")) && !(befehle[i].contains("b")) && !(befehle[i].contains("c")) 
-					&& !(befehle[i].contains("d")) && !(befehle[i].contains("e")) && !(befehle[i].contains("f")) 
-					&& !(befehle[i].contains("g")) && !(befehle[i].contains("h")) && !(befehle[i].contains("i")) 
-					&& !(befehle[i].contains("j")) && !(befehle[i].contains("k")) && !(befehle[i].contains("l")) 
-					&& !(befehle[i].contains("m")) && !(befehle[i].contains("n")) && !(befehle[i].contains("o")) 
-					&& !(befehle[i].contains("p")) && !(befehle[i].contains("q")) && !(befehle[i].contains("r")) 
-					&& !(befehle[i].contains("s")) && !(befehle[i].contains("t")) && !(befehle[i].contains("u")) 
-					&& !(befehle[i].contains("v")) && !(befehle[i].contains("w")) && !(befehle[i].contains("x")) 
-					&& !(befehle[i].contains("y")) && !(befehle[i].contains("z")) && !(befehle[i].contains("µ"))
-					&& !(befehle[i].contains("!")) && !(befehle[i].contains("§")) && !(befehle[i].contains("$"))
-					&& !(befehle[i].contains("%")) && !(befehle[i].contains("&")) && !(befehle[i].contains("/"))
-					&& !(befehle[i].contains("(")) && !(befehle[i].contains(")")) && !(befehle[i].contains("="))
-					&& !(befehle[i].contains("?")) && !(befehle[i].contains("`")) && !(befehle[i].contains("+"))
-					&& !(befehle[i].contains("*")) && !(befehle[i].contains("#")) && !(befehle[i].contains("'"))
-					&& !(befehle[i].contains("_")) && !(befehle[i].contains("-")) && !(befehle[i].contains("."))
-					&& !(befehle[i].contains(":")) && !(befehle[i].contains(";")) && !(befehle[i].contains(","))
-					&& !(befehle[i].contains("<")) && !(befehle[i].contains(">")) && !(befehle[i].contains("^"))
-					&& !(befehle[i].contains("°")) && !(befehle[i].contains("²")) && !(befehle[i].contains("³"))
-					&& !(befehle[i].contains("{")) && !(befehle[i].contains("[")) && !(befehle[i].contains("]"))
-					&& !(befehle[i].contains("}")) && !(befehle[i].contains("ß")) && !(befehle[i].contains("\\"))
-					&& !(befehle[i].contains("\"")) && !(befehle[i].contains("~")) && !(befehle[i].contains("@"))
-					&& !(befehle[i].contains("€")) && !(befehle[i].contains("´")) && !(befehle[i].contains("|")))) {
-				nummer = Integer.parseInt(befehle[i]);
+			if(befehle[i].matches("-?\\d+(\\.\\d+)?")) {
+				nummer = Integer.parseInt(befehle[i]);				
 			}
 		}
 
