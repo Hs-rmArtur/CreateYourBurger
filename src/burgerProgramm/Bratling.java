@@ -50,20 +50,18 @@ public class Bratling extends Zutat {
 	 * Berechnung der Hoehe des Bratlings, das sich bei der zubereitung ändert.
 	 */
 	public double berechneHoehe() {
-		double hoehePro;
+		double hoeheProEinheit;
 		double temp = this.hoehe;
 
 		for (int i = 0; i < (bratzeit / 60); i++) {
-			hoehePro = (temp / 100) * 3.5;
-			temp -= hoehePro;
+			hoeheProEinheit = (temp / 100) * 3.5;
+			temp -= hoeheProEinheit;
 		}
 		
-		if(bratzeit % 60 != 0) {
 			for(int i = 0; i < (bratzeit % 60); i++) {
-				hoehePro = ((temp / 100) * 3.5) / 60;
-				temp -= hoehePro;
+				hoeheProEinheit = ((temp / 100) * 3.5) / 60;
+				temp -= hoeheProEinheit;
 			}
-		}
 		
 		return (Math.round(temp * 10) / 10.0);
 	}

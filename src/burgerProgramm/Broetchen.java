@@ -50,19 +50,17 @@ public class Broetchen extends Zutat {
 	 * Berechnung der Hoehe des Brötchens, welches sich beim Backen ändert.
 	 */
 	public double berechneHoehe() { 
-		double hoehePro;
+		double hoeheProEinheit;
 		double temp = this.hoehe;
 
 		for (int i = 0; i < (backzeit / 60); i++) {
-			hoehePro = (temp / 100) * 2.5;
-			temp += hoehePro;
+			hoeheProEinheit = (temp / 100) * 2.5;
+			temp += hoeheProEinheit;
 		}
 		
-		if(backzeit % 60 != 0) {
 			for(int i = 0; i < (backzeit % 60); i++) {
-				hoehePro = ((temp / 100) * 2.5) / 60;
-				temp += hoehePro;
-			}
+				hoeheProEinheit = ((temp / 100) * 2.5) / 60;
+				temp += hoeheProEinheit;
 		}
 		
 		return (Math.round(temp*10)/10.0);
