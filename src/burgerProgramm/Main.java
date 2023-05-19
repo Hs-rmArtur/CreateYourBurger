@@ -1,9 +1,12 @@
 package burgerProgramm;
 
 import de.hsrm.mi.prog.util.StaticScanner;
+
 /**
- * Ein Programm welches dem User ermöglicht eigene Kreationen von Burgern zu erstellen.
- * Am Ende erhält er die Burger zubereitet und außerdem das Rezept dazu.
+ * Ein Programm welches dem User ermöglicht eigene Kreationen von Burgern zu
+ * erstellen. Am Ende erhält er die Burger zubereitet und außerdem das Rezept
+ * dazu.
+ * 
  * @author artur konkel, michael karenko
  *
  */
@@ -30,7 +33,7 @@ public class Main {
 
 		druckeWillkommensText();
 		druckeAnleitung(false);
-		
+
 		do {
 			eingabe = StaticScanner.nextString();
 			befehle = bearbeiteBefehle(eingabe);
@@ -39,28 +42,28 @@ public class Main {
 			if (fuehreAllgemeineBefehleAus(befehle, false) == false) {
 				switch (befehle[INDEX_HAUPTBEFEHL]) {
 				case BEFEHL_NEUER_BURGER:
-					
-					//Pruefe, ob dritte Stelle im Befehl vorhanden ist
+
+					// Pruefe, ob dritte Stelle im Befehl vorhanden ist
 					if (befehle.length > 2) {
 						aktuellerBurger = erstelleBurger(befehle[INDEX_BURGERNAME]);
-						
-						if(aktuellerBurger != null) {
-							belegeBurger(aktuellerBurger);							
+
+						if (aktuellerBurger != null) {
+							belegeBurger(aktuellerBurger);
 						}
-						
+
 						System.out.println("Bitte deine Eingabe:");
 					} else {
 						System.out.println("Du musst deinem Burger einen Namen geben!");
 					}
-					
+
 					break;
 				case BEFEHL_BESTELLEN:
 					bestellungAbgeben();
-					
+
 					break;
 				case BEFEHL_ABBRECHEN:
 					System.out.println("Dein Bestellvorgang wurde abgebrochen.");
-					
+
 					break;
 				default:
 					System.out.println("Deine Eingabe war nicht korrekt. Versuche es gerne erneut.");
@@ -87,7 +90,8 @@ public class Main {
 	}
 
 	/**
-	 * Berechnet die Zubereitungszeit und den Gesamtpreis aller Bestellungen und druckt diese aus.
+	 * Berechnet die Zubereitungszeit und den Gesamtpreis aller Bestellungen und
+	 * druckt diese aus.
 	 */
 	public static void bestellungAbgeben() {
 		int zubereitungsZeit = 0;
@@ -100,7 +104,7 @@ public class Main {
 				burgerBestellungen[i].zeigeRezept();
 				tempZeit = burgerBestellungen[i].berechneZubereitungszeit();
 
-				//ermittle die höchste Zubereitungszeit der Burger
+				// ermittle die höchste Zubereitungszeit der Burger
 				if (tempZeit > zubereitungsZeit) {
 					zubereitungsZeit = tempZeit;
 				}
@@ -110,25 +114,29 @@ public class Main {
 			}
 		}
 		strGesamtpreis = String.format("%.2f", gesamtPreis);
-		
+
 		System.out.println();
 		System.out.println("Gesamtzubereitungszeit: " + (zubereitungsZeit / 60) + " Minuten und "
 				+ (zubereitungsZeit % 60) + " Sekunden");
 		System.out.println("Gesamtpreis: " + strGesamtpreis + " Euro\n");
 	}
-	
+
 	/**
 	 * Bearbeitet die Eingabe des Users zur weiteren Verarbeitung vor.
+	 * 
 	 * @param befehle Zeichenkette der Usereingabe
 	 * @return Array mit einzelnen Worten
 	 */
 	public static String[] bearbeiteBefehle(String befehle) {
-		befehle = befehle.toLowerCase();
-		return befehle.split(" ");
+		String[] output = befehle.split(" ");
+		output[0] = output[0].toLowerCase();
+		return output;
 	}
 
 	/**
-	 * Prueft, ob die maximale Anzahl an erlaubten gleichzeitigen Bestellungen erlaubt ist.
+	 * Prueft, ob die maximale Anzahl an erlaubten gleichzeitigen Bestellungen
+	 * erlaubt ist.
+	 * 
 	 * @return boolean, ob max Anzahl erreicht oder nicht.
 	 */
 	public static boolean pruefeObBestellungenMaxErreicht() {
@@ -145,14 +153,15 @@ public class Main {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Überprüfung, ob der eingegebene Befehl vom Typ OK ist.
+	 * 
 	 * @param befehl Befehl, der überprüft werden soll.
 	 * @return boolean
 	 */
 	public static boolean pruefeObBefehl_BEFEHL_OK(String befehl) {
-		if(befehl.equals(BEFEHL_OK)){
+		if (befehl.equals(BEFEHL_OK)) {
 			return true;
 		} else {
 			return false;
@@ -161,6 +170,7 @@ public class Main {
 
 	/**
 	 * Hauptlogik zum Abfragen der Zutaten, die auf den Burger gelegt werden sollen.
+	 * 
 	 * @param burger, der belegt werden soll.
 	 */
 	public static void belegeBurger(Burger burger) {
@@ -172,7 +182,7 @@ public class Main {
 		boolean zutatHinzugefuegt = true;
 		boolean istAllgemeinerBefehl = false;
 		boolean istBefehlOK = false;
-		
+
 		System.out.println();
 		System.out.println("Mit was moechtest du deinen Burger belegen? ");
 		System.out.println("Mit '" + BEFEHL_OK + "' kannst du deine Zusammenstellung abschließen.");
@@ -184,9 +194,9 @@ public class Main {
 				eingabe = StaticScanner.nextString();
 				befehle = bearbeiteBefehle(eingabe);
 				istBefehlOK = pruefeObBefehl_BEFEHL_OK(befehle[INDEX_HAUPTBEFEHL]);
-				
+
 				istAllgemeinerBefehl = fuehreAllgemeineBefehleAus(befehle, true);
-				
+
 				if (!istBefehlOK && istAllgemeinerBefehl == false) {
 					zutatenNr = pruefeObIntInBefehl(befehle);
 					aktuelleZutat = findeZutat(zutatenNr);
@@ -200,7 +210,8 @@ public class Main {
 					}
 				}
 
-			} while ((aktuelleZutat == null || aktuelleZutat instanceof Broetchen || istAllgemeinerBefehl == true) && !istBefehlOK);
+			} while ((aktuelleZutat == null || aktuelleZutat instanceof Broetchen || istAllgemeinerBefehl == true)
+					&& !istBefehlOK);
 
 			if (!istBefehlOK) {
 				zutatHinzugefuegt = burger.fuegeZutatHinzu(aktuelleZutat);
@@ -211,21 +222,22 @@ public class Main {
 			} else if (!istBefehlOK) {
 				zaehlerZutaten++;
 				druckeZutatNachBelegen(aktuelleZutat);
-				
+
 			}
 		} while (!istBefehlOK && zutatHinzugefuegt);
 
 		System.out.println("Dein Burger '" + burger.getName() + "' wird der Bestellung hinzugefuegt.");
 
 	}
-	
+
 	/**
 	 * Drucken der Zutatnummer und dessen Preis nach dem Belegen.
+	 * 
 	 * @param zutat Die Zutat die hunzugefügt wird
 	 */
 	public static void druckeZutatNachBelegen(Zutat zutat) {
 		String strZutatPreis = "";
-		
+
 		strZutatPreis = String.format("%.2f", zutat.getPreis());
 
 		System.out.println("> Zutat " + zutat.getNummer());
@@ -233,7 +245,9 @@ public class Main {
 	}
 
 	/**
-	 * Erstellt einen neuen leeren Burger und prüft ob die maximale Anzahl erreicht ist. Initialisiert den Burger mit der entsprechenden Methode
+	 * Erstellt einen neuen leeren Burger und prüft ob die maximale Anzahl erreicht
+	 * ist. Initialisiert den Burger mit der entsprechenden Methode
+	 * 
 	 * @param name Name des zu erstellenden Burgers
 	 * @return Der neu erstellte Burger wird zurückgegeben
 	 */
@@ -258,7 +272,9 @@ public class Main {
 	}
 
 	/**
-	 * Erstellung des Burgers mit Userabfrage, mit welchem Broetchen dieser initialisiert werden soll.
+	 * Erstellung des Burgers mit Userabfrage, mit welchem Broetchen dieser
+	 * initialisiert werden soll.
+	 * 
 	 * @param name, den der Burger haben soll.
 	 */
 	public static Burger initialisiereBurgerMitBroetchen(String name) {
@@ -285,13 +301,13 @@ public class Main {
 
 		System.out.println(zutat.toString());
 		System.out.println("Dein Burger ist bereit belegt zu werden!");
-		
+
 		return new Burger(name, (Broetchen) zutat);
 	}
-	
-		
+
 	/**
 	 * Ausgabe der Zutat, die anhand der Nummer ermittelt wird.
+	 * 
 	 * @param zutatenNummer der Zutat
 	 * @return gefundene Zutat oder null
 	 */
@@ -304,7 +320,6 @@ public class Main {
 		return null;
 	}
 
-	
 	/**
 	 * Druckt den Willkommenstext beim starten des Programms
 	 */
@@ -318,33 +333,35 @@ public class Main {
 
 	/**
 	 * druckt die Befehle, die eingegeben werden können.
-	 * @param imBelegProzess fragt ab, ob die Anleitung im Belegprozess aufgerufen wird oder nicht.
+	 * 
+	 * @param imBelegProzess fragt ab, ob die Anleitung im Belegprozess aufgerufen
+	 *                       wird oder nicht.
 	 */
 	public static void druckeAnleitung(boolean imBelegProzess) {
 		System.out.println("Wie es funktioniert:");
 		System.out.println(
 				"Mit '" + BEFEHL_MENU + "' kannst du dir alle zur Verfügung stehenden Zutaten anzeigen lassen.");
-		
+
 		if (!imBelegProzess) {
 			System.out.println(
 					"Mit '" + BEFEHL_NEUER_BURGER + " Burger <Name>' beginnst du die Kreation deines Burgers.");
-			
+
 		}
-		
+
 		if (imBelegProzess) {
 			System.out.println(
-					"Mit '<Zutatennummer>' fuegst du im Kreationsprozess deinem Burger die Zutat mit der entspraechenden Nummer hinzu.");			
+					"Mit '<Zutatennummer>' fuegst du im Kreationsprozess deinem Burger die Zutat mit der entspraechenden Nummer hinzu.");
 		}
 
 		System.out.println(
 				"Mit '" + BEFEHL_MEINE_BURGER + " Burger' gibst du dir alle bereits erstellten Kreationen aus.");
 
-		if(!imBelegProzess) {
+		if (!imBelegProzess) {
 			System.out.println("Mit '" + BEFEHL_BESTELLEN
 					+ "' schließt du deine Kreationen ab und wir machen uns an die Arbeit, um deine Burger fertig zu stellen.");
 			System.out.println("Mit '" + BEFEHL_ABBRECHEN + "' brichst du deine gesamte Bestellung ab.");
 		}
-	
+
 		System.out.println("Mit '" + BEFEHL_ZEIGE_BEFEHLE + "' lässt du dir diese Befehlsliste erneut ausgeben.");
 
 		System.out.println();
@@ -352,8 +369,9 @@ public class Main {
 	}
 
 	/**
-	 * Suche eines Integers im eingegeben Befehl. Gleichzeitig wird so vermieden, dass es sich 
-	 * nicht um einen falschen Eingabetyp handelt.
+	 * Suche eines Integers im eingegeben Befehl. Gleichzeitig wird so vermieden,
+	 * dass es sich nicht um einen falschen Eingabetyp handelt.
+	 * 
 	 * @param befehle Array mit Befehlen
 	 * @return geparste nummer, die im Befehl gefunden wurde.
 	 */
@@ -361,8 +379,8 @@ public class Main {
 		int nummer = 0;
 
 		for (int i = 0; i < befehle.length; i++) {
-			if(befehle[i].matches("-?\\d+(\\.\\d+)?")) {
-				nummer = Integer.parseInt(befehle[i]);				
+			if (befehle[i].matches("-?\\d+(\\.\\d+)?")) {
+				nummer = Integer.parseInt(befehle[i]);
 			}
 		}
 
@@ -370,9 +388,12 @@ public class Main {
 	}
 
 	/**
-	 * Allgemeine Befehle, die beim Belegen, sowie als auch im Startmenü ausgeführt werden können.
-	 * @param befehle Der geteilte String der Eingabe
-	 * @param imBelegProzess, prueft ob methode beim Belegen ausgeführt wird oder nicht.
+	 * Allgemeine Befehle, die beim Belegen, sowie als auch im Startmenü ausgeführt
+	 * werden können.
+	 * 
+	 * @param befehle         Der geteilte String der Eingabe
+	 * @param imBelegProzess, prueft ob methode beim Belegen ausgeführt wird oder
+	 *                        nicht.
 	 * @return boolean, ob einer der allgemeinen Befehle ausgeführt wurde.
 	 */
 	public static boolean fuehreAllgemeineBefehleAus(String[] befehle, boolean imBelegProzess) {
@@ -445,7 +466,7 @@ public class Main {
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
-		
+
 		System.out.println();
 		System.out.println("Kaese:");
 		for (int i = 0; i < ZUTATEN.length; i++) {
@@ -459,7 +480,8 @@ public class Main {
 
 	/**
 	 * Erstellung eines Arrays mit den möglichen Zutaten.
-	 * @return Array  mit Zutaten.
+	 * 
+	 * @return Array mit Zutaten.
 	 */
 	public static Zutat[] generiereZutaten() {
 		return new Zutat[] { new Broetchen("Hamburger", 10, 0.85, true, Zutat.VEGETARISCH, 90, 27),
@@ -472,11 +494,9 @@ public class Main {
 				new Bratling("Falafel-Bratling", 22, 1.45, false, Zutat.VEGAN, 210, 21),
 				new Bratling("Gemuese-Bratling", 23, 1.75, false, Zutat.VEGETARISCH, 240, 25),
 
-				new Salat("Eisbergsalat", 30, 0.18, true),
-				new Salat("Rucolasalat", 31, 0.25, false),
+				new Salat("Eisbergsalat", 30, 0.18, true), new Salat("Rucolasalat", 31, 0.25, false),
 
-				new Gemuese("Tomate", 40, 0.25, true, 3, 3),
-				new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
+				new Gemuese("Tomate", 40, 0.25, true, 3, 3), new Gemuese("Salzgurke", 41, 0.15, true, 4, 2),
 				new Gemuese("Rote Zwiebelringe", 42, 0.08, false, 5, 2),
 				new Gemuese("Jalapeno-Ringe", 43, 0.08, false, 5, 2),
 
@@ -484,12 +504,11 @@ public class Main {
 				new Sauce("Sandwich-Sauce", 51, 0.15, true, Zutat.VEGETARISCH, 10, Sauce.NORMAL),
 				new Sauce("Chili-Sauce", 52, 0.25, false, Zutat.VEGAN, 8, Sauce.SCHARF),
 				new Sauce("Honig-Senf-Sauce", 53, 0.18, false, Zutat.VEGETARISCH, 8, Sauce.SUESS),
-				
+
 				new Kaese("Sandwich-Kaese", 125, 0.39, true, Zutat.VEGETARISCH, 80, Kaese.TYP_KUHMILCH),
 				new Kaese("Gouda", 126, 0.59, false, Zutat.VEGETARISCH, 140, Kaese.TYP_KUHMILCH),
 				new Kaese("Salakis", 127, 0.75, false, Zutat.VEGETARISCH, 60, Kaese.TYP_SCHAFSMILCH),
 				new Kaese("Landana Rosso", 128, 0.95, false, Zutat.VEGETARISCH, 210, Kaese.TYP_ZIEGENMILCH),
-				
 
 		};
 
