@@ -445,6 +445,15 @@ public class Main {
 				System.out.println("--------------------------------------------------------------");
 			}
 		}
+		
+		System.out.println();
+		System.out.println("Kaese:");
+		for (int i = 0; i < ZUTATEN.length; i++) {
+			if (ZUTATEN[i] instanceof Kaese) {
+				System.out.println(ZUTATEN[i].toString());
+				System.out.println("--------------------------------------------------------------");
+			}
+		}
 
 	}
 
@@ -474,7 +483,13 @@ public class Main {
 				new Sauce("Ketchup", 50, 0.10, true, Zutat.VEGAN, 5, Sauce.NORMAL),
 				new Sauce("Sandwich-Sauce", 51, 0.15, true, Zutat.VEGETARISCH, 10, Sauce.NORMAL),
 				new Sauce("Chili-Sauce", 52, 0.25, false, Zutat.VEGAN, 8, Sauce.SCHARF),
-				new Sauce("Honig-Senf-Sauce", 53, 0.18, false, Zutat.VEGETARISCH, 8, Sauce.SUESS)
+				new Sauce("Honig-Senf-Sauce", 53, 0.18, false, Zutat.VEGETARISCH, 8, Sauce.SUESS),
+				
+				new Kaese("Sandwich-Kaese", 125, 0.39, true, Zutat.VEGETARISCH, 80, Kaese.TYP_KUHMILCH),
+				new Kaese("Gouda", 126, 0.59, false, Zutat.VEGETARISCH, 140, Kaese.TYP_KUHMILCH),
+				new Kaese("Salakis", 127, 0.75, false, Zutat.VEGETARISCH, 60, Kaese.TYP_SCHAFSMILCH),
+				new Kaese("Landana Rosso", 128, 0.95, false, Zutat.VEGETARISCH, 210, Kaese.TYP_ZIEGENMILCH),
+				
 
 		};
 
