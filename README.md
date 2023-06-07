@@ -30,8 +30,9 @@ if(mind == blown){
     <tr><td>test</td></tr>
 
     
-    <style>
-      * {
-      color:#ddd;
-      }
+   <style>
+    .hi {
+        font-size: 2em;
+        color:green;
+    }
     </style>
