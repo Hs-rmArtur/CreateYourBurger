@@ -34,3 +34,4 @@ if(mind == blown){
       * {
       color:#ddd;
       }
+    </style>
