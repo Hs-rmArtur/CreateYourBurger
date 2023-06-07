@@ -28,3 +28,9 @@ if(mind == blown){
   <tbody>
     <tr><td>ih</td><td>jo</td></tr>
     <tr><td>test</td></tr>
+
+    
+    <style>
+      * {
+      color:#ddd;
+      }
